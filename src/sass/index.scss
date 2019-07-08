@@ -1,0 +1,23 @@
+@import './variables';
+@import '../components/App/App.scss';
+@import '../components/Header/Header.scss';
+@import '../components/PaletteMaker/PaletteMaker.scss';
+@import '../components/ProjectCard/ProjectCard.scss';
+@import '../components/ProjectForm/ProjectForm.scss';
+@import '../components/ProjectMaker/ProjectMaker.scss';
+@import '../components/ProjectPalettes/ProjectPalettes.scss';
+
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}

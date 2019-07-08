@@ -1,0 +1,13 @@
+.palette-maker-component {
+
+  .palette-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-gap: 10px;
+    
+    .palette-card {
+      border: 1px solid red;
+      height: 400px;
+    }
+  }
+}
