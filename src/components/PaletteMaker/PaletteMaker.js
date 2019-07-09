@@ -1,23 +1,20 @@
 import React, { Component } from "react";
+import Palettes from "../Palettes/Palettes";
 
 class PaletteMaker extends Component {
-  constructor() {
-    super();
-    this.state = {
-      paletteTitle: "",
-      projectTitle: "",
-      colors: [
-        { isLocked: false, hex: "" },
-        { isLocked: false, hex: "" },
-        { isLocked: false, hex: "" },
-        { isLocked: false, hex: "" },
-        { isLocked: true, hex: "66666" }
-      ]
-    };
-  }
+  state = {
+    paletteTitle: "",
+    projectTitle: "",
+    colors: [
+      { isLocked: false, hex: "", id: 1 },
+      { isLocked: false, hex: "", id: 2 },
+      { isLocked: false, hex: "", id: 3 },
+      { isLocked: false, hex: "", id: 4 },
+      { isLocked: false, hex: "", id: 5 }
+    ]
+  };
 
   componentDidMount() {
-    // this.renderRandom
     this.generateColors();
   }
 
@@ -28,7 +25,9 @@ class PaletteMaker extends Component {
     let paletteColors = this.state.colors;
 
     paletteColors.forEach(palette => {
-      const randomColor = Math.floor(Math.random() * 16777215).toString(16);
+      const randomColor = `#${Math.floor(Math.random() * 16777215).toString(
+        16
+      )}`;
       if (!palette.isLocked) {
         palette.hex = randomColor;
       }
@@ -39,36 +38,46 @@ class PaletteMaker extends Component {
     });
   };
 
-  colorSave = () => {
-    //post with args being equal to
+  renderPalettes = () => {
+    const { colors } = this.state;
+    const palettes = colors.map(color => {
+      return (
+        <Palettes
+          key={color.id}
+          isLocked={color.isLocked}
+          id={color.id}
+          hex={color.hex}
+          lockPalette={this.lockPalette}
+        />
+      );
+    });
+    return palettes;
+  };
+
+  lockPalette = id => {
+    const colors = this.state.colors.map(color => {
+      if (color.id === id) {
+        color.isLocked = !color.isLocked;
+      }
+      return color;
+    });
+    this.setState({ colors });
   };
 
   render() {
-    console.log(this.state);
-    var randomColor = Math.floor(Math.random() * 16777215).toString(16);
-
-    const paletteStyles = {
-      backgroundColor: `#${randomColor}`
-    };
-
     return (
       <div className="palette-maker-component">
-        <section className="palette-cards">
-          <div className="palette-card" style={paletteStyles}>
-            <h1>{randomColor}</h1>
-          </div>
-          <div className="palette-card" style={paletteStyles} />
-          <div className="palette-card" style={paletteStyles} />
-          <div className="palette-card" style={paletteStyles} />
-          <div className="palette-card" style={paletteStyles} />
-        </section>
+        {this.renderPalettes()}
         <form>
           <input type="text" placeholder="palette name" />
           <select>
             <option>sample project</option>
             <option>sample project</option>
           </select>
-          <button onClick={e => this.generateColors(e)}>
+          <button
+            data-test="generate-colors-btn"
+            onClick={e => this.generateColors(e)}
+          >
             generate new palette
           </button>
           <button>save palette</button>
