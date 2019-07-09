@@ -20,7 +20,7 @@ class DoughnutGraph extends Component {
     };
     return (
       <div className="doughnut-component">
-        <Doughnut data={data} />
+        <Doughnut data={data} className="doughnut-graph"/>
       </div>
     );
   }
