@@ -1,8 +1,10 @@
 .palette-maker-component {
+  margin: 0 150px 0 150px;
 
   .palette-cards {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    height: 300px;
     grid-gap: 10px;
     
     .palette-card {

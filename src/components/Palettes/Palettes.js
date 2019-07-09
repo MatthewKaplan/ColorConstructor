@@ -6,7 +6,7 @@ class Palettes extends Component {
     return (
       <div className="palettes-container" style={{ backgroundColor: hex }}>
         <h1 className="hex-code">{hex.toUpperCase()}</h1>
-        <i role="button" className="Color-lock-icon material-icons" onClick={() => lockPalette(id)}>
+        <i role="button" data-test='lock-icon' className="Color-lock-icon material-icons" onClick={() => lockPalette(id)}>
 				{isLocked ? 'lock' : 'lock_open'}
 			</i>
       </div>
