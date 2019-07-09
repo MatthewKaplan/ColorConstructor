@@ -33,63 +33,75 @@ class App extends Component {
   };
 
   addProject = async (projectName, paletteName, colors) => {
-		const { projects } = this.state;
-		try {
-			const response = await fetch('http://localhost:3000/api/v1/projects', {
-				method: 'POST',
-				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify({ name: projectName })
-			});
-			const newProject = await response.json();
-			this.setState({ projects: [...projects, newProject] }, () => {
-				this.addPalette(newProject.id, paletteName, colors);
-			});
-		} catch (error) {
-			this.setState({ error: error.message });
-		}
-	};
-
-	addPalette = async (projectId, name, colors) => {
-		const { palettes } = this.state;
-		const paletteData = {
-			name,
-			color_1: colors[0].hex,
-			color_2: colors[1].hex,
-			color_3: colors[2].hex,
-			color_4: colors[3].hex,
-			color_5: colors[4].hex,
-			project_id: projectId
-		};
-		try {
-			const response = await fetch(`http://localhost:3000/api/v1/palettes`, {
-				method: 'POST',
-				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify(paletteData)
-			});
-			const newPalette = await response.json();
-			this.setState({ palettes: [...palettes, newPalette] });
-		} catch (error) {
-			this.setState({ error: error.message });
-		}
+    const { projects } = this.state;
+    try {
+      const response = await fetch("http://localhost:3000/api/v1/projects", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: projectName })
+      });
+      const newProject = await response.json();
+      this.setState({ projects: [...projects, newProject] }, () => {
+        this.addPalette(newProject.id, paletteName, colors);
+      });
+    } catch (error) {
+      this.setState({ error: error.message });
+    }
   };
-  
+
+  addPalette = async (projectId, name, colors) => {
+    const { palettes } = this.state;
+    const paletteData = {
+      name,
+      color_1: colors[0].hex,
+      color_2: colors[1].hex,
+      color_3: colors[2].hex,
+      color_4: colors[3].hex,
+      color_5: colors[4].hex,
+      project_id: projectId
+    };
+    try {
+      const response = await fetch(`http://localhost:3000/api/v1/palettes`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(paletteData)
+      });
+      const newPalette = await response.json();
+      this.setState({ palettes: [...palettes, newPalette] });
+    } catch (error) {
+      this.setState({ error: error.message });
+    }
+  };
+
   deletePalette = async id => {
-		const { palettes } = this.state;
-		try {
-			await fetch(`http://localhost:3000/api/v1/palettes/${id}`, {
-				method: 'DELETE'
-			});
-			this.setState({ palettes: palettes.filter(palette => palette.id !== id) });
-		} catch (error) {
-			this.setState({ error: error.message });
-		}
-	};
+    const { palettes } = this.state;
+    try {
+      await fetch(`http://localhost:3000/api/v1/palettes/${id}`, {
+        method: "DELETE"
+      });
+      this.setState({
+        palettes: palettes.filter(palette => palette.id !== id)
+      });
+    } catch (error) {
+      this.setState({ error: error.message });
+    }
+  };
 
   render() {
+    const { projects } = this.state;
     return (
       <div className="App">
+        <img
+          className="bg-image"
+          src={require("../../assets/construction.jpg")}
+          alt="Denver Front Range"
+        />
         <Header />
-        <PaletteMaker />
+        <PaletteMaker
+          projects={projects}
+          addPalette={this.addPalette}
+          addProject={this.addProject}
+        />
       </div>
     );
   }

@@ -4,13 +4,13 @@
   width: 50%;
   height: 50%;
   border: 10px solid red;
-  transform: rotate(165deg);
+  transform: rotate(4165deg);
   border: 0;
   border-radius: 35%;
   position: relative;
   right: 0px;
   border: 10px solid red;
-  transform: rotate(3685deg);
+  transform: rotate(4165deg);
   border: 0;
 }
 
@@ -30,6 +30,6 @@
 
 @keyframes spin {
   100% {
-    transform: rotate(405deg);
+    transform: rotate(4165deg);
   }
 }

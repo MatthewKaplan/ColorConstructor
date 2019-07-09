@@ -8,16 +8,18 @@ const mockLockPalette = jest.fn();
 describe("Palettes", () => {
   let wrapper, instance;
 
-  beforeEach(() => {
+  it("should match the snapshot", () => {
     wrapper = shallow(<Palettes hex={mockHex} lockPalette={mockLockPalette} />);
-    instance = wrapper.instance();
+    expect(wrapper).toMatchSnapshot();
   });
 
-  it("should match the snapshot", () => {
+  it("should match the snapshot if isLocked is true", () => {
+    wrapper = shallow(<Palettes hex={mockHex} lockPalette={mockLockPalette} isLocked={true} />);
     expect(wrapper).toMatchSnapshot();
   });
 
   it("should invoke 'lockPalette' when lock-icon is clicked", () => {
+    wrapper = shallow(<Palettes hex={mockHex} lockPalette={mockLockPalette} />);
     wrapper.find("[data-test='lock-icon']").simulate("click");
     expect(mockLockPalette).toHaveBeenCalled();
   });
