@@ -1,3 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Palettes should match the snapshot 1`] = `ShallowWrapper {}`;
+
+exports[`Palettes should match the snapshot if isLocked is true 1`] = `ShallowWrapper {}`;
