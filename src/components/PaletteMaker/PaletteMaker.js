@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import Palettes from "../Palettes/Palettes";
+import PieGraph from "../PieGraph/PieGraph";
+import DoughnutGraph from "../DoughnutGraph/DoughnutGraph";
 
 class PaletteMaker extends Component {
   state = {
@@ -65,9 +67,12 @@ class PaletteMaker extends Component {
   };
 
   render() {
+    const {colors} = this.state;
     return (
       <div className="palette-maker-component">
-        {this.renderPalettes()}
+        <section className="palette-cards">{this.renderPalettes()}</section>
+        <section className="pie-graph"><PieGraph colors={colors} /></section>
+        <section className="pie-graph"><DoughnutGraph colors={colors} /></section>
         <form>
           <input type="text" placeholder="palette name" />
           <select>
