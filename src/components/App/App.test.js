@@ -33,6 +33,21 @@ const mockColors = [
   }
 ];
 
+const mockPalette = [
+  {
+    id: 3,
+    name: "palette 1",
+    color_1: "#534496",
+    color_2: "#d923eb",
+    color_3: "#29c346",
+    color_4: "#e51662",
+    color_5: "#ee8c59",
+    project_id: 3,
+    created_at: "2019-07-02T21:25:43.996Z",
+    updated_at: "2019-07-02T21:25:43.996Z"
+  }
+];
+
 const projectBody = {
   body: '{"name":"Project Name"}',
   headers: { "Content-Type": "application/json" },
@@ -212,6 +227,32 @@ describe("App", () => {
         Promise.reject(new Error("Fetch failed"))
       );
       await instance.addPalette(1, "Palette Name", mockColors);
+      expect(wrapper.state("error")).toEqual("Fetch failed");
+    });
+  });
+
+  describe("deletePalette", () => {
+    it("should invoke fetch with the correct params", () => {
+      const mockId = 1;
+      const mockBody = { method: "DELETE" };
+      instance.deletePalette(mockId);
+      expect(fetch).toHaveBeenCalledWith(`${palettesLink}/${mockId}`, mockBody);
+    });
+
+    it("should set state of palettes with the response of the fetch", async () => {
+      wrapper.setState({
+        palettes: mockPalette
+      });
+      await instance.deletePalette(3);
+      expect(wrapper.state("palettes")).toEqual([]);
+    });
+
+    it("should throw an error if the response is not ok and save it to state", async () => {
+      expect(wrapper.state("error")).toEqual("");
+      window.fetch.mockImplementationOnce(() =>
+        Promise.reject(new Error("Fetch failed"))
+      );
+      await instance.deletePalette(3);
       expect(wrapper.state("error")).toEqual("Fetch failed");
     });
   });
