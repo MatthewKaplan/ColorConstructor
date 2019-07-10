@@ -13,7 +13,9 @@ class App extends Component {
   fetchProjects = async () => {
     this.setState({ loading: true });
     try {
-      const projects = await fetch("http://localhost:3000/api/v1/projects");
+      const projects = await fetch(
+        "https://colorconstructor-api.herokuapp.com/api/v1/projects"
+      );
       const response = await projects.json();
       this.setState({ projects: response, loading: false });
     } catch (error) {
@@ -24,7 +26,9 @@ class App extends Component {
   fetchPalettes = async () => {
     this.setState({ loading: true });
     try {
-      const palettes = await fetch("http://localhost:3000/api/v1/palettes");
+      const palettes = await fetch(
+        "https://colorconstructor-api.herokuapp.com/api/v1/palettes"
+      );
       const response = await palettes.json();
       this.setState({ palettes: response });
     } catch (error) {
@@ -34,6 +38,7 @@ class App extends Component {
 
   addProject = async (projectName, paletteName, colors) => {
     const { projects } = this.state;
+
     try {
       const response = await fetch("http://localhost:3000/api/v1/projects", {
         method: "POST",
