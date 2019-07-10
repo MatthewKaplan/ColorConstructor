@@ -6,6 +6,7 @@ class PaletteMaker extends Component {
     paletteTitle: "",
     projectTitle: "",
     chosenProject: 0,
+    chosenPalette: 0,
     colors: [
       { isLocked: false, hex: "", id: 1 },
       { isLocked: false, hex: "", id: 2 },
@@ -85,6 +86,7 @@ class PaletteMaker extends Component {
     const {
       paletteTitle,
       chosenProject,
+      chosenPalette,
       projectTitle,
       newProject,
       newPalette,
@@ -197,6 +199,20 @@ class PaletteMaker extends Component {
                       this.setState({ projectTitle: e.target.value })
                     }
                   />
+                  <input
+                    required
+                    type="text"
+                    className="palette-name-input"
+                    id="new-palette-name"
+                    name="name"
+                    data-test="palette-name"
+                    placeholder="Untitled Palette"
+                    value={paletteTitle}
+                    onChange={e =>
+                      this.setState({ paletteTitle: e.target.value })
+                    }
+                  />
+                  <button>Submit</button>
                 </div>
               </form>
             </div>
@@ -304,6 +320,27 @@ class PaletteMaker extends Component {
                         {project.name}
                       </option>
                     ))}
+                  </select>
+                  <select
+                    id="palette-selector"
+                    className="palette-select"
+                    required
+                    value={chosenPalette}
+                    data-test="palette-select"
+                    onChange={e =>
+                      this.setState({ chosenPalette: parseInt(e.target.value) })
+                    }
+                  >
+                    <option value="0">-- Select a Palette --</option>
+                    {this.props.palettes.map(palette => {
+                      if (chosenProject === palette.project_id) {
+                        return (
+                          <option key={palette.id} value={palette.id}>
+                            {palette.name}
+                          </option>
+                        );
+                      }
+                    })}
                   </select>
                 </div>
               </form>

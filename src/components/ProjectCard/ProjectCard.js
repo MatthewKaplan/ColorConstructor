@@ -7,9 +7,11 @@ class ProjectCard extends Component {
     const matchingPalettes = palettes.filter(palette => {
       return project.id === palette.project_id;
     });
-    if (!matchingPalettes.length) {
-      deleteProject(project.id);
-    }
+    setTimeout(() => {
+      if (!matchingPalettes.length) {
+        deleteProject(project.id);
+      }
+    }, 0);
     const projectPalette = matchingPalettes.map(palette => {
       return (
         <ProjectPalettes
