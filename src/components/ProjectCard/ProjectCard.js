@@ -31,7 +31,7 @@ class ProjectCard extends Component {
   };
 
   render() {
-    const { project, deleteProject } = this.props;
+    const { project } = this.props;
     return (
       <div className="project-card-component" id="projects">
         <h1>{project.name}</h1>
