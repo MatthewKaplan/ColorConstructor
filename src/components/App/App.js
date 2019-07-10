@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Header from "../Header/Header";
 import PaletteMaker from "../PaletteMaker/PaletteMaker";
-import ProjectPalettes from "../ProjectPalettes/ProjectPalettes";
 import ProjectCard from "../ProjectCard/ProjectCard";
 
 class App extends Component {
