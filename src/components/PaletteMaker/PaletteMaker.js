@@ -26,9 +26,7 @@ class PaletteMaker extends Component {
     let paletteColors = this.state.colors;
 
     paletteColors.forEach(palette => {
-      const randomColor = `#${Math.floor(Math.random() * 16777215).toString(
-        16
-      )}`;
+      const randomColor = "#" + Math.random().toString(16).slice(2, 8);
       if (!palette.isLocked) {
         palette.hex = randomColor;
       }
