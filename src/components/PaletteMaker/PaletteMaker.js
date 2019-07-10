@@ -64,11 +64,11 @@ class PaletteMaker extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    const { chosenProject, projectName, paletteName, colors } = this.state;
+    const { chosenProject, projectTitle, paletteTitle, colors } = this.state;
     if (chosenProject === 0) {
-      this.props.addProject(projectName, paletteName, colors);
+      this.props.addProject(projectTitle, paletteTitle, colors);
     } else {
-      this.props.addPalette(chosenProject, paletteName, colors);
+      this.props.addPalette(chosenProject, paletteTitle, colors);
     }
   };
 
@@ -130,11 +130,12 @@ class PaletteMaker extends Component {
             <div className="project-name-container">
               <label htmlFor="new-project-name">Project Name:</label>
               <input
+                required
                 type="text"
                 className="project-name-input"
                 id="new-project-name"
                 name="name"
-                data-test='project-name'
+                data-test="project-name"
                 placeholder="Untitled Project"
                 value={projectTitle}
                 onChange={e => this.setState({ projectTitle: e.target.value })}
