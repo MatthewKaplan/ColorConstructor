@@ -117,7 +117,7 @@ class App extends Component {
       <div className="App">
         <img
           className="bg-image"
-          src={require("../../assets/buildings.jpg")}
+          src={("https://i.imgur.com/Ns3CECV.jpg")}
           alt="Sky scrappers"
         />
         <Header />
