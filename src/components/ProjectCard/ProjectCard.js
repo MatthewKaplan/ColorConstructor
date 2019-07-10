@@ -3,7 +3,7 @@ import ProjectPalettes from "../ProjectPalettes/ProjectPalettes";
 
 class ProjectCard extends Component {
   render() {
-    const { palettes, project, deletePalette } = this.props;
+    const { palettes, project, deletePalette, deleteProject } = this.props;
     const matchingPalettes = palettes.filter(palette => {
       return project.id === palette.project_id;
     });
@@ -27,6 +27,13 @@ class ProjectCard extends Component {
     return (
       <div className="project-card-component" id="projects">
         <h1>{project.name}</h1>
+        <button
+          onClick={() => {
+            deleteProject(project.id);
+          }}
+        >
+          delete project
+        </button>
         {projectPalettes}
       </div>
     );
