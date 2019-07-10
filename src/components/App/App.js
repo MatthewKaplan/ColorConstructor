@@ -85,6 +85,32 @@ class App extends Component {
     }
   };
 
+  patchPalette = async (name, colors, id) => {
+    const { palettes } = this.state;
+    const paletteData = {
+      name,
+      color_1: colors[0],
+      color_2: colors[1],
+      color_3: colors[2],
+      color_4: colors[3],
+      color_5: colors[4]
+    };
+    try {
+      const response = await fetch(
+        `https://colorconstructor-api.herokuapp.com/api/v1/palettes/${id}`,
+        {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(paletteData)
+        }
+      );
+      const updatedPalette = await response.json();
+      this.setState({ palettes: [...palettes, updatedPalette] });
+    } catch (error) {
+      this.setState({ error: error.message });
+    }
+  };
+
   deletePalette = async id => {
     const { palettes } = this.state;
     try {
@@ -141,6 +167,7 @@ class App extends Component {
         <Header />
         <PaletteMaker
           projects={projects}
+          palettes={palettes}
           addPalette={this.addPalette}
           addProject={this.addProject}
         />
