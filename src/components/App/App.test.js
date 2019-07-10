@@ -3,8 +3,8 @@ import { shallow } from "enzyme";
 import App from "./App";
 import MockData from "../../assets/mockData";
 
-const projectsLink = "http://localhost:3000/api/v1/projects";
-const palettesLink = "http://localhost:3000/api/v1/palettes";
+const projectsLink = "https://colorconstructor-api.herokuapp.com/api/v1/projects";
+const palettesLink = "https://colorconstructor-api.herokuapp.com/api/v1/palettes";
 
 const mockColors = MockData.mockColors;
 const mockPalette = MockData.mockPalette;
@@ -147,7 +147,7 @@ describe("App", () => {
     it("should set state of projects with the response of the fetch", async () => {
       expect(wrapper.state("projects")).toEqual([]);
       await instance.addProject("Project Name", "Palette Name", mockColors);
-      expect(wrapper.state("projects")).toEqual([1]);
+      expect(wrapper.state("projects")).toEqual(1);
     });
 
     it("should invoke 'addPalette' with the correct params", async () => {
