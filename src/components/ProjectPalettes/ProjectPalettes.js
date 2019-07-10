@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import PieGraph from "../PieGraph/PieGraph";
 import DoughnutGraph from "../DoughnutGraph/DoughnutGraph";
 
 class ProjectPalettes extends Component {
@@ -11,6 +10,11 @@ class ProjectPalettes extends Component {
           <section className="pie-graph">
             <DoughnutGraph colors={this.props.colors} />
           </section>
+          <button
+            onClick={() => this.props.deletePalette(this.props.paletteId)}
+          >
+            delete
+          </button>
         </div>
       </div>
     );

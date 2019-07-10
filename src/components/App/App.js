@@ -105,7 +105,13 @@ class App extends Component {
   render() {
     const { projects, palettes } = this.state;
     const projectCard = projects.map(project => {
-      return <ProjectCard palettes={palettes} project={project} />;
+      return (
+        <ProjectCard
+          palettes={palettes}
+          project={project}
+          deletePalette={this.deletePalette}
+        />
+      );
     });
     return (
       <div className="App">

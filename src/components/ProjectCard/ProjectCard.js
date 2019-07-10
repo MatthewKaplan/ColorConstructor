@@ -3,7 +3,7 @@ import ProjectPalettes from "../ProjectPalettes/ProjectPalettes";
 
 class ProjectCard extends Component {
   render() {
-    const { palettes, project } = this.props;
+    const { palettes, project, deletePalette } = this.props;
     const matchingPalettes = palettes.filter(palette => {
       return project.id === palette.project_id;
     });
@@ -18,7 +18,9 @@ class ProjectCard extends Component {
             palette.color_5
           ]}
           key={palette.id}
+          paletteId={palette.id}
           paletteName={palette.name}
+          deletePalette={deletePalette}
         />
       );
     });
