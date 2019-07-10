@@ -35,6 +35,10 @@
     right: -230px;
     transition: .8s ease;
     box-shadow: 4px 5px 10px #000;
+
+    &:nth-child(5n){
+      background-color: red;
+    }
   }
 
   .banner-area h2 {
@@ -69,6 +73,9 @@
   }
   #nav4 {
     top: 410px;
+  }
+  #nav5 {
+    top: 650px;
   }
 
   .btn-area h2 img {
