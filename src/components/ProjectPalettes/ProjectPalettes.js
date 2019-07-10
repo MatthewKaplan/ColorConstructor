@@ -10,11 +10,12 @@ class ProjectPalettes extends Component {
           <section className="pie-graph">
             <DoughnutGraph colors={this.props.colors} />
           </section>
-          <button
+          <img
             onClick={() => this.props.deletePalette(this.props.paletteId)}
-          >
-            delete
-          </button>
+            className="delete-palette"
+            alt="delete icon"
+            src="https://i.imgur.com/ZJ6SKgx.png"
+          />
         </div>
       </div>
     );
