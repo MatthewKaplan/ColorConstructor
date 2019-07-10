@@ -17,12 +17,13 @@ class ProjectCard extends Component {
             palette.color_4,
             palette.color_5
           ]}
+          key={palette.id}
           paletteName={palette.name}
         />
       );
     });
     return (
-      <div className="project-card-component">
+      <div className="project-card-component" id="projects">
         <h1>{project.name}</h1>
         {projectPalettes}
       </div>
