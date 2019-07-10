@@ -98,8 +98,8 @@ class App extends Component {
       <div className="App">
         <img
           className="bg-image"
-          src={require("../../assets/construction.jpg")}
-          alt="Denver Front Range"
+          src={require("../../assets/buildings.jpg")}
+          alt="Sky scrappers"
         />
         <Header />
         <PaletteMaker
