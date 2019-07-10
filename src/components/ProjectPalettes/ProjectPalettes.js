@@ -7,9 +7,7 @@ class ProjectPalettes extends Component {
     return (
       <div className="project-palettes-component">
         <div className="graphs">
-          <section className="pie-graph">
-            <PieGraph colors={this.props.colors} />
-          </section>
+          <h1 className="palette-name">{this.props.paletteName}</h1>
           <section className="pie-graph">
             <DoughnutGraph colors={this.props.colors} />
           </section>
