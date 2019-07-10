@@ -69,12 +69,16 @@ class PaletteMaker extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
+    this.setState({ newProject: false, newPalette: false, editProject: false });
     const { chosenProject, projectTitle, paletteTitle, colors } = this.state;
     if (chosenProject === 0) {
       this.props.addProject(projectTitle, paletteTitle, colors);
     } else {
       this.props.addPalette(chosenProject, paletteTitle, colors);
     }
+    setTimeout(() => {
+      this.setState({ chosenProject: 0, paletteTitle: "", projectTitle: "" });
+    }, 0);
   };
 
   render() {
@@ -108,7 +112,13 @@ class PaletteMaker extends Component {
             <div className="btn-area" id="nav2">
               <h2
                 data-test="open-new-palette"
-                onClick={() => this.setState({ newPalette: true })}
+                onClick={() =>
+                  this.setState({
+                    newPalette: true,
+                    chosenProject: 0,
+                    paletteTitle: ""
+                  })
+                }
               >
                 <img
                   className="add-palette nav-icon"
