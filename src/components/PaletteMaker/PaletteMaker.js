@@ -12,7 +12,10 @@ class PaletteMaker extends Component {
       { isLocked: false, hex: "", id: 3 },
       { isLocked: false, hex: "", id: 4 },
       { isLocked: false, hex: "", id: 5 }
-    ]
+    ],
+    newProject: false,
+    newPalette: false,
+    editProject: false
   };
 
   componentDidMount() {
@@ -72,10 +75,204 @@ class PaletteMaker extends Component {
     }
   };
 
+  handlePopUp = () => {
+    this.setState({ newProject: true });
+  };
+
   render() {
-    const { paletteTitle, chosenProject, projectTitle } = this.state;
+    const {
+      paletteTitle,
+      chosenProject,
+      projectTitle,
+      newProject,
+      newPalette,
+      editProject
+    } = this.state;
     return (
       <div className="palette-maker-component">
+        <div className="banner-area">
+          <div className="btn-area" id="nav1">
+            <h2 onClick={() => this.setState({ newProject: true })}>
+              <img
+                className="add-project nav-icon"
+                src="https://i.imgur.com/fLxsoUL.png"
+                alt="folder with plus sign on it."
+              />
+              Create New Project
+            </h2>
+          </div>
+          <div className="btn-area" id="nav2">
+            <h2 onClick={() => this.setState({ newPalette: true })}>
+              <img
+                className="add-palette nav-icon"
+                src="https://i.imgur.com/jUtzZ1X.png"
+                alt="swatchbook"
+              />
+              Create New Palette
+            </h2>
+          </div>
+          <div className="btn-area" id="nav3">
+            <h2 onClick={() => this.setState({ editProject: true })}>
+              <img
+                className="edit-projects nav-icon"
+                src="https://i.imgur.com/sfaD9Mf.png"
+                alt="open folder"
+              />
+              Edit Project
+            </h2>
+          </div>
+          <div className="btn-area" id="nav4">
+            <h2>
+              <img
+                className="view-projects nav-icon"
+                src="https://i.imgur.com/Z0I6qT1.png"
+                alt="open folder"
+              />
+              View Saved Projects
+            </h2>
+          </div>
+        </div>
+        {newProject === true && (
+          <div className="bg-modal">
+            <div className="modal-content">
+              <div
+                className="close"
+                onClick={() => this.setState({ newProject: false })}
+              >
+                +
+              </div>
+              <form
+                className="palette-maker-form"
+                data-test="palette-maker-form"
+                onSubmit={e => this.handleSubmit(e)}
+              >
+                <div className="project-name-container">
+                  <label htmlFor="new-project-name">Project Name:</label>
+                  <input
+                    required
+                    type="text"
+                    className="project-name-input"
+                    id="new-project-name"
+                    name="name"
+                    data-test="project-name"
+                    placeholder="Untitled Project"
+                    value={projectTitle}
+                    onChange={e =>
+                      this.setState({ projectTitle: e.target.value })
+                    }
+                  />
+                </div>
+              </form>
+            </div>
+          </div>
+        )}
+
+        {newPalette === true && (
+          <div className="bg-modal">
+            <div className="modal-content">
+              <div
+                className="close"
+                onClick={() => this.setState({ newPalette: false })}
+              >
+                +
+              </div>
+              <form
+                className="palette-maker-form"
+                data-test="palette-maker-form"
+                onSubmit={e => this.handleSubmit(e)}
+              >
+                <div className="project-dropdown">
+                  <label htmlFor="project-selector">
+                    Please Select a Project that you would like to add a palette
+                    too:
+                  </label>
+                  <select
+                    id="project-selector"
+                    className="project-select"
+                    required
+                    value={chosenProject}
+                    data-test="project-select"
+                    onChange={e =>
+                      this.setState({ chosenProject: parseInt(e.target.value) })
+                    }
+                  >
+                    <option value="0">-- Select a Project --</option>
+                    {this.props.projects.map(project => (
+                      <option key={project.id} value={project.id}>
+                        {project.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                {chosenProject >= 1 && (
+                  <React.Fragment>
+                    <div className="palette-title-container">
+                      <label htmlFor="palette-title">Palette Title</label>
+                      <input
+                        className="ColorGenerator-form-input"
+                        type="text"
+                        id="palette-title"
+                        name="paletteTitle"
+                        required
+                        data-test="palette-title"
+                        placeholder="Untitled Palette"
+                        value={paletteTitle}
+                        onChange={e =>
+                          this.setState({ paletteTitle: e.target.value })
+                        }
+                      />
+                    </div>
+                    <button className="add-new-palette" type="submit">
+                      Add New Palette
+                    </button>
+                  </React.Fragment>
+                )}
+              </form>
+            </div>
+          </div>
+        )}
+
+        {editProject === true && (
+          <div className="bg-modal">
+            <div className="modal-content">
+              <div
+                className="close"
+                onClick={() => this.setState({ editProject: false })}
+              >
+                +
+              </div>
+              <form
+                className="palette-maker-form"
+                data-test="palette-maker-form"
+                onSubmit={e => this.handleSubmit(e)}
+              >
+                <div className="project-dropdown">
+                  <label htmlFor="project-selector">
+                    Please Select a Project that you would like to edit:
+                  </label>
+                  <select
+                    id="project-selector"
+                    className="project-select"
+                    required
+                    value={chosenProject}
+                    data-test="project-select"
+                    onChange={e =>
+                      this.setState({ chosenProject: parseInt(e.target.value) })
+                    }
+                  >
+                    <option value="0">-- Select a Project --</option>
+                    {this.props.projects.map(project => (
+                      <option key={project.id} value={project.id}>
+                        {project.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </form>
+            </div>
+          </div>
+        )}
+
         <section className="palette-cards-section">
           <div className="palette-cards">{this.renderPalettes()}</div>
           <input
@@ -86,67 +283,6 @@ class PaletteMaker extends Component {
             onClick={() => this.generateColors()}
           />
         </section>
-
-        <form
-          className="palette-maker-form"
-          data-test="palette-maker-form"
-          onSubmit={e => this.handleSubmit(e)}
-        >
-          <div className="palette-title-container">
-            <label htmlFor="palette-title">Palette Title</label>
-            <input
-              className="ColorGenerator-form-input"
-              type="text"
-              id="palette-title"
-              name="paletteTitle"
-              data-test="palette-title"
-              placeholder="Untitled Palette"
-              value={paletteTitle}
-              onChange={e => this.setState({ paletteTitle: e.target.value })}
-            />
-          </div>
-
-          <div className="project-dropdown">
-            <label htmlFor="project-selector">Please Select a Project:</label>
-            <select
-              id="project-selector"
-              className="project-select"
-              value={chosenProject}
-              data-test="project-select"
-              onChange={e =>
-                this.setState({ chosenProject: parseInt(e.target.value) })
-              }
-            >
-              <option value="0">-- Create New Project --</option>
-              {this.props.projects.map(project => (
-                <option key={project.id} value={project.id}>
-                  {project.name}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          {chosenProject === 0 && (
-            <div className="project-name-container">
-              <label htmlFor="new-project-name">Project Name:</label>
-              <input
-                required
-                type="text"
-                className="project-name-input"
-                id="new-project-name"
-                name="name"
-                data-test="project-name"
-                placeholder="Untitled Project"
-                value={projectTitle}
-                onChange={e => this.setState({ projectTitle: e.target.value })}
-              />
-            </div>
-          )}
-
-          <button className="add-new-palette" type="submit">
-            Add New Palette
-          </button>
-        </form>
       </div>
     );
   }
