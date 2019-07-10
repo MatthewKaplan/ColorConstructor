@@ -99,19 +99,25 @@ const mockPalette = [
 
 const mockProject = [
   {
-    "id": 3,
-    "name": "project 1",
-    "created_at": "2019-07-02T21:25:43.989Z",
-    "updated_at": "2019-07-02T21:25:43.989Z"
+    id: 3,
+    name: "project 1",
+    created_at: "2019-07-02T21:25:43.989Z",
+    updated_at: "2019-07-02T21:25:43.989Z"
   }
-]
+];
 
-
+const mockSingleProject = {
+  id: 3,
+  name: "project 1",
+  created_at: "2019-07-02T21:25:43.989Z",
+  updated_at: "2019-07-02T21:25:43.989Z"
+};
 
 module.exports = {
   mockColorsFalse,
   mockColorsTrue,
   mockColors,
   mockPalette,
-  mockProject
-}
+  mockProject,
+  mockSingleProject
+};

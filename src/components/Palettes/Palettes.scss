@@ -1,10 +1,13 @@
 .palettes-container {
 	display: flex;
-	justify-content: flex-end;
+	justify-content: center;
 	align-items: center;
 	flex-direction: column;
 	padding: 25px;
-	color: #b6b6b69a;
+	color: #ffffff;
+	transition-duration: .5s;
+	transition-timing-function: ease-in;
+	box-shadow: 5px 5px 5px black;
 
 	&:first-child {
 		border-radius: 8px 0 0 8px;

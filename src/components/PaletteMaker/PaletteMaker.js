@@ -18,15 +18,35 @@ class PaletteMaker extends Component {
     editProject: false
   };
 
+  // componentDidMount() {
+  //   this.generateColors();
+  // }
+
+  keyHandling(e) {
+    this.
+    window.onkeydown = function(e) {
+      return !(e.keyCode === 32);
+    };
+  }
+
   componentDidMount() {
     this.generateColors();
+    window.addEventListener("keyup", this.keyHandling);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("keyup", this.keyHandling);
   }
 
   generateColors = () => {
     let paletteColors = this.state.colors;
 
     paletteColors.forEach(palette => {
-      const randomColor = "#" + Math.random().toString(16).slice(2, 8);
+      const randomColor =
+        "#" +
+        Math.random()
+          .toString(16)
+          .slice(2, 8);
       if (!palette.isLocked) {
         palette.hex = randomColor;
       }
@@ -73,10 +93,6 @@ class PaletteMaker extends Component {
     }
   };
 
-  handlePopUp = () => {
-    this.setState({ newProject: true });
-  };
-
   render() {
     const {
       paletteTitle,
@@ -90,7 +106,10 @@ class PaletteMaker extends Component {
       <div className="palette-maker-component">
         <div className="banner-area">
           <div className="btn-area" id="nav1">
-            <h2 onClick={() => this.setState({ newProject: true })}>
+            <h2
+              data-test="open-new-project"
+              onClick={() => this.setState({ newProject: true })}
+            >
               <img
                 className="add-project nav-icon"
                 src="https://i.imgur.com/fLxsoUL.png"
@@ -100,7 +119,10 @@ class PaletteMaker extends Component {
             </h2>
           </div>
           <div className="btn-area" id="nav2">
-            <h2 onClick={() => this.setState({ newPalette: true })}>
+            <h2
+              data-test="open-new-palette"
+              onClick={() => this.setState({ newPalette: true })}
+            >
               <img
                 className="add-palette nav-icon"
                 src="https://i.imgur.com/jUtzZ1X.png"
@@ -110,7 +132,10 @@ class PaletteMaker extends Component {
             </h2>
           </div>
           <div className="btn-area" id="nav3">
-            <h2 onClick={() => this.setState({ editProject: true })}>
+            <h2
+              data-test="open-edit-project"
+              onClick={() => this.setState({ editProject: true })}
+            >
               <img
                 className="edit-projects nav-icon"
                 src="https://i.imgur.com/sfaD9Mf.png"
@@ -119,29 +144,32 @@ class PaletteMaker extends Component {
               Edit Project
             </h2>
           </div>
-          <div className="btn-area" id="nav4">
-            <h2>
-              <img
-                className="view-projects nav-icon"
-                src="https://i.imgur.com/Z0I6qT1.png"
-                alt="open folder"
-              />
-              View Saved Projects
-            </h2>
-          </div>
+          <a href="#projects">
+            <div className="btn-area" id="nav4">
+              <h2>
+                <img
+                  className="view-projects nav-icon"
+                  src="https://i.imgur.com/Z0I6qT1.png"
+                  alt="open folder"
+                />
+                View Saved Projects
+              </h2>
+            </div>
+          </a>
         </div>
         {newProject === true && (
           <div className="bg-modal">
             <div className="modal-content">
               <div
                 className="close"
+                data-test="close-new-project"
                 onClick={() => this.setState({ newProject: false })}
               >
                 +
               </div>
               <form
                 className="palette-maker-form"
-                data-test="palette-maker-form"
+                data-test="new-project-form"
                 onSubmit={e => this.handleSubmit(e)}
               >
                 <div className="project-name-container">
@@ -170,13 +198,14 @@ class PaletteMaker extends Component {
             <div className="modal-content">
               <div
                 className="close"
+                data-test="close-new-palette"
                 onClick={() => this.setState({ newPalette: false })}
               >
                 +
               </div>
               <form
                 className="palette-maker-form"
-                data-test="palette-maker-form"
+                data-test="new-palette-form"
                 onSubmit={e => this.handleSubmit(e)}
               >
                 <div className="project-dropdown">
@@ -235,13 +264,14 @@ class PaletteMaker extends Component {
             <div className="modal-content">
               <div
                 className="close"
+                data-test="close-edit-project"
                 onClick={() => this.setState({ editProject: false })}
               >
                 +
               </div>
               <form
                 className="palette-maker-form"
-                data-test="palette-maker-form"
+                data-test="edit-project-form"
                 onSubmit={e => this.handleSubmit(e)}
               >
                 <div className="project-dropdown">
