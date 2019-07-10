@@ -16,12 +16,32 @@ class PaletteMaker extends Component {
     ],
     newProject: false,
     newPalette: false,
-    editProject: false
+    editProject: false,
+    editProjectButton: false
   };
 
   componentDidMount() {
     this.generateColors();
   }
+
+  handleEdit = e => {
+    e.preventDefault();
+
+    const palette = this.props.palettes.find(palette => {
+      return palette.id === this.state.chosenPalette;
+    });
+
+    this.setState({ editProject: false });
+
+    this.setState(({ colors }) => {
+      colors[0].hex = palette.color_1;
+      colors[1].hex = palette.color_2;
+      colors[2].hex = palette.color_3;
+      colors[3].hex = palette.color_4;
+      colors[4].hex = palette.color_5;
+      return colors;
+    });
+  };
 
   generateColors = () => {
     let paletteColors = this.state.colors;
@@ -298,7 +318,7 @@ class PaletteMaker extends Component {
               <form
                 className="palette-maker-form"
                 data-test="edit-project-form"
-                onSubmit={e => this.handleSubmit(e)}
+                onSubmit={e => this.handleEdit(e)}
               >
                 <div className="project-dropdown">
                   <label htmlFor="project-selector">
@@ -343,6 +363,7 @@ class PaletteMaker extends Component {
                     })}
                   </select>
                 </div>
+                <button type="submit">SUBMIT</button>
               </form>
             </div>
           </div>
