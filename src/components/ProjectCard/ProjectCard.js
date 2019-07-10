@@ -35,13 +35,6 @@ class ProjectCard extends Component {
     return (
       <div className="project-card-component" id="projects">
         <h1>{project.name}</h1>
-        <button
-          onClick={() => {
-            deleteProject(project.id);
-          }}
-        >
-          delete project
-        </button>
         {this.renderProjectPalette()}
       </div>
     );
