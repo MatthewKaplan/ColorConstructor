@@ -18,24 +18,8 @@ class PaletteMaker extends Component {
     editProject: false
   };
 
-  // componentDidMount() {
-  //   this.generateColors();
-  // }
-
-  keyHandling(e) {
-    this.
-    window.onkeydown = function(e) {
-      return !(e.keyCode === 32);
-    };
-  }
-
   componentDidMount() {
     this.generateColors();
-    window.addEventListener("keyup", this.keyHandling);
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener("keyup", this.keyHandling);
   }
 
   generateColors = () => {
@@ -156,6 +140,16 @@ class PaletteMaker extends Component {
               </h2>
             </div>
           </a>
+          <div className="btn-area" id="nav5">
+            <h2 onClick={() => this.generateColors()}>
+              <img
+                className="view-projects nav-icon"
+                src="https://i.imgur.com/cGp9VHw.png"
+                alt="open folder"
+              />
+              Generate Palette
+            </h2>
+          </div>
         </div>
         {newProject === true && (
           <div className="bg-modal">
@@ -303,13 +297,6 @@ class PaletteMaker extends Component {
 
         <section className="palette-cards-section">
           <div className="palette-cards">{this.renderPalettes()}</div>
-          <input
-            type="submit"
-            className="generate-colors"
-            data-test="generate-colors-btn"
-            value="Generate New Palette"
-            onClick={() => this.generateColors()}
-          />
         </section>
       </div>
     );
