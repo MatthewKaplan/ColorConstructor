@@ -2,12 +2,15 @@ import React, { Component } from "react";
 import ProjectPalettes from "../ProjectPalettes/ProjectPalettes";
 
 class ProjectCard extends Component {
-  render() {
+  renderProjectPalette = () => {
     const { palettes, project, deletePalette, deleteProject } = this.props;
     const matchingPalettes = palettes.filter(palette => {
       return project.id === palette.project_id;
     });
-    const projectPalettes = matchingPalettes.map(palette => {
+    if (!matchingPalettes.length) {
+      deleteProject(project.id);
+    }
+    const projectPalette = matchingPalettes.map(palette => {
       return (
         <ProjectPalettes
           colors={[
@@ -24,6 +27,11 @@ class ProjectCard extends Component {
         />
       );
     });
+    return projectPalette;
+  };
+
+  render() {
+    const { project, deleteProject } = this.props;
     return (
       <div className="project-card-component" id="projects">
         <h1>{project.name}</h1>
@@ -34,7 +42,7 @@ class ProjectCard extends Component {
         >
           delete project
         </button>
-        {projectPalettes}
+        {this.renderProjectPalette()}
       </div>
     );
   }
