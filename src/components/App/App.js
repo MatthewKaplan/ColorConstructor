@@ -102,11 +102,29 @@ class App extends Component {
     }
   };
 
+  deleteProject = async id => {
+    const { projects } = this.state;
+    try {
+      await fetch(
+        `https://colorconstructor-api.herokuapp.com/api/v1/projects/${id}`,
+        {
+          method: "DELETE"
+        }
+      );
+      this.setState({
+        projects: projects.filter(project => project.id !== id)
+      });
+    } catch (error) {
+      this.setState({ error: error.message });
+    }
+  };
+
   render() {
     const { projects, palettes } = this.state;
     const projectCard = projects.map(project => {
       return (
         <ProjectCard
+          deleteProject={this.deleteProject}
           palettes={palettes}
           project={project}
           deletePalette={this.deletePalette}
@@ -117,7 +135,7 @@ class App extends Component {
       <div className="App">
         <img
           className="bg-image"
-          src={("https://i.imgur.com/Ns3CECV.jpg")}
+          src={"https://i.imgur.com/Ns3CECV.jpg"}
           alt="Sky scrappers"
         />
         <Header />
