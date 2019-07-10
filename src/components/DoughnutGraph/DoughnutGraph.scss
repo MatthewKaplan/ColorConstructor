@@ -4,32 +4,32 @@
   width: 50%;
   height: 50%;
   border: 10px solid red;
-  transform: rotate(4165deg);
+  // transform: rotate(4165deg);
   border: 0;
   border-radius: 35%;
   position: relative;
   right: 0px;
   border: 10px solid red;
-  transform: rotate(4165deg);
+  // transform: rotate(4165deg);
   border: 0;
 }
 
-.pie-graph {
-  animation-name: spin;
-  animation-iteration-count: infinite;
-  animation-timing-function: linear;
-  animation-duration: 15s;
-  border-top: 10 solid  red;
-  border-left:  10 solid red;
-  border-right:  10 solid red;
-  border-bottom:  10 solid red;
-  width: 50%;
-  height: 50%;
-  animation-delay: 0.1s;
-}
+// .pie-graph {
+//   animation-name: spin;
+//   animation-iteration-count: infinite;
+//   animation-timing-function: linear;
+//   animation-duration: 15s;
+//   border-top: 10 solid  red;
+//   border-left:  10 solid red;
+//   border-right:  10 solid red;
+//   border-bottom:  10 solid red;
+//   width: 50%;
+//   height: 50%;
+//   animation-delay: 0.1s;
+// }
 
-@keyframes spin {
-  100% {
-    transform: rotate(4165deg);
-  }
-}
+// @keyframes spin {
+//   100% {
+//     transform: rotate(4165deg);
+//   }
+// }
