@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import Header from "../Header/Header";
 import PaletteMaker from "../PaletteMaker/PaletteMaker";
+import ProjectPalettes from "../ProjectPalettes/ProjectPalettes";
+import ProjectCard from "../ProjectCard/ProjectCard";
 
 class App extends Component {
   state = { projects: [], palettes: [], error: "", loading: false };
@@ -38,7 +40,7 @@ class App extends Component {
 
   addProject = async (projectName, paletteName, colors) => {
     const { projects } = this.state;
-
+    console.log("switch the fetch to use prod before turning in");
     try {
       const response = await fetch("http://localhost:3000/api/v1/projects", {
         method: "POST",
@@ -93,7 +95,10 @@ class App extends Component {
   };
 
   render() {
-    const { projects } = this.state;
+    const { projects, palettes } = this.state;
+    const projectCard = projects.map(project => {
+      return <ProjectCard palettes={palettes} project={project} />;
+    });
     return (
       <div className="App">
         <img
@@ -107,6 +112,7 @@ class App extends Component {
           addPalette={this.addPalette}
           addProject={this.addProject}
         />
+        {projectCard}
       </div>
     );
   }
