@@ -87,47 +87,53 @@ class PaletteMaker extends Component {
       editProject
     } = this.state;
     return (
-      <div className="palette-maker-component">
+      <div className="palette-maker-component" id="home">
         <div className="banner-area">
-          <div className="btn-area" id="nav1">
-            <h2
-              data-test="open-new-project"
-              onClick={() => this.setState({ newProject: true })}
-            >
-              <img
-                className="add-project nav-icon"
-                src="https://i.imgur.com/fLxsoUL.png"
-                alt="folder with plus sign on it."
-              />
-              Create New Project
-            </h2>
-          </div>
-          <div className="btn-area" id="nav2">
-            <h2
-              data-test="open-new-palette"
-              onClick={() => this.setState({ newPalette: true })}
-            >
-              <img
-                className="add-palette nav-icon"
-                src="https://i.imgur.com/jUtzZ1X.png"
-                alt="swatchbook"
-              />
-              Create New Palette
-            </h2>
-          </div>
-          <div className="btn-area" id="nav3">
-            <h2
-              data-test="open-edit-project"
-              onClick={() => this.setState({ editProject: true })}
-            >
-              <img
-                className="edit-projects nav-icon"
-                src="https://i.imgur.com/sfaD9Mf.png"
-                alt="open folder"
-              />
-              Edit Project
-            </h2>
-          </div>
+          <a href="#home">
+            <div className="btn-area" id="nav1">
+              <h2
+                data-test="open-new-project"
+                onClick={() => this.setState({ newProject: true })}
+              >
+                <img
+                  className="add-project nav-icon"
+                  src="https://i.imgur.com/fLxsoUL.png"
+                  alt="folder with plus sign on it."
+                />
+                Create New Project
+              </h2>
+            </div>
+          </a>
+          <a href="#home">
+            <div className="btn-area" id="nav2">
+              <h2
+                data-test="open-new-palette"
+                onClick={() => this.setState({ newPalette: true })}
+              >
+                <img
+                  className="add-palette nav-icon"
+                  src="https://i.imgur.com/jUtzZ1X.png"
+                  alt="swatchbook"
+                />
+                Create New Palette
+              </h2>
+            </div>
+          </a>
+          <a href="#home">
+            <div className="btn-area" id="nav3">
+              <h2
+                data-test="open-edit-project"
+                onClick={() => this.setState({ editProject: true })}
+              >
+                <img
+                  className="edit-projects nav-icon"
+                  src="https://i.imgur.com/sfaD9Mf.png"
+                  alt="open folder"
+                />
+                Edit Project
+              </h2>
+            </div>
+          </a>
           <a href="#projects">
             <div className="btn-area" id="nav4">
               <h2>
