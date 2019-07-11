@@ -85,6 +85,35 @@ class App extends Component {
     }
   };
 
+  patchPalette = async (name, colors, id) => {
+    const { palettes } = this.state;
+    const paletteData = {
+      name,
+      color_1: colors[0].hex,
+      color_2: colors[1].hex,
+      color_3: colors[2].hex,
+      color_4: colors[3].hex,
+      color_5: colors[4].hex,
+      id
+    };
+    console.log("pd", paletteData);
+    try {
+      await fetch(
+        `https://colorconstructor-api.herokuapp.com/api/v1/palettes/${id}`,
+        {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(paletteData)
+        }
+      );
+      // const updatedPalette = await response.json();
+      // this.setState({ palettes: [...palettes, updatedPalette] });
+      this.fetchPalettes();
+    } catch (error) {
+      this.setState({ error: error.message });
+    }
+  };
+
   deletePalette = async id => {
     const { palettes } = this.state;
     try {
@@ -102,11 +131,30 @@ class App extends Component {
     }
   };
 
+  deleteProject = async id => {
+    const { projects } = this.state;
+    try {
+      await fetch(
+        `https://colorconstructor-api.herokuapp.com/api/v1/projects/${id}`,
+        {
+          method: "DELETE"
+        }
+      );
+      this.setState({
+        projects: projects.filter(project => project.id !== id)
+      });
+    } catch (error) {
+      this.setState({ error: error.message });
+    }
+  };
+
   render() {
+    console.log("I rerendered!");
     const { projects, palettes } = this.state;
     const projectCard = projects.map(project => {
       return (
         <ProjectCard
+          deleteProject={this.deleteProject}
           palettes={palettes}
           project={project}
           deletePalette={this.deletePalette}
@@ -117,14 +165,16 @@ class App extends Component {
       <div className="App">
         <img
           className="bg-image"
-          src={("https://i.imgur.com/Ns3CECV.jpg")}
+          src={"https://i.imgur.com/Ns3CECV.jpg"}
           alt="Sky scrappers"
         />
         <Header />
         <PaletteMaker
           projects={projects}
+          palettes={palettes}
           addPalette={this.addPalette}
           addProject={this.addProject}
+          patchPalette={this.patchPalette}
         />
         {projectCard}
       </div>

@@ -6,6 +6,7 @@ class PaletteMaker extends Component {
     paletteTitle: "",
     projectTitle: "",
     chosenProject: 0,
+    chosenPalette: 0,
     colors: [
       { isLocked: false, hex: "", id: 1 },
       { isLocked: false, hex: "", id: 2 },
@@ -15,12 +16,32 @@ class PaletteMaker extends Component {
     ],
     newProject: false,
     newPalette: false,
-    editProject: false
+    editProject: false,
+    editProjectButton: false
   };
 
   componentDidMount() {
     this.generateColors();
   }
+
+  handleEdit = e => {
+    e.preventDefault();
+
+    const palette = this.props.palettes.find(palette => {
+      return palette.id === this.state.chosenPalette;
+    });
+
+    this.setState({ editProject: false, editProjectButton: true });
+
+    this.setState(({ colors }) => {
+      colors[0].hex = palette.color_1;
+      colors[1].hex = palette.color_2;
+      colors[2].hex = palette.color_3;
+      colors[3].hex = palette.color_4;
+      colors[4].hex = palette.color_5;
+      return colors;
+    });
+  };
 
   generateColors = () => {
     let paletteColors = this.state.colors;
@@ -69,65 +90,84 @@ class PaletteMaker extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
+    this.setState({ newProject: false, newPalette: false, editProject: false });
     const { chosenProject, projectTitle, paletteTitle, colors } = this.state;
     if (chosenProject === 0) {
       this.props.addProject(projectTitle, paletteTitle, colors);
     } else {
       this.props.addPalette(chosenProject, paletteTitle, colors);
     }
+    setTimeout(() => {
+      this.setState({ chosenProject: 0, paletteTitle: "", projectTitle: "" });
+    }, 0);
   };
 
   render() {
     const {
       paletteTitle,
       chosenProject,
+      chosenPalette,
       projectTitle,
       newProject,
       newPalette,
-      editProject
+      editProject,
+      editProjectButton,
+      colors
     } = this.state;
     return (
-      <div className="palette-maker-component">
+      <div className="palette-maker-component" id="home">
         <div className="banner-area">
-          <div className="btn-area" id="nav1">
-            <h2
-              data-test="open-new-project"
-              onClick={() => this.setState({ newProject: true })}
-            >
-              <img
-                className="add-project nav-icon"
-                src="https://i.imgur.com/fLxsoUL.png"
-                alt="folder with plus sign on it."
-              />
-              Create New Project
-            </h2>
-          </div>
-          <div className="btn-area" id="nav2">
-            <h2
-              data-test="open-new-palette"
-              onClick={() => this.setState({ newPalette: true })}
-            >
-              <img
-                className="add-palette nav-icon"
-                src="https://i.imgur.com/jUtzZ1X.png"
-                alt="swatchbook"
-              />
-              Create New Palette
-            </h2>
-          </div>
-          <div className="btn-area" id="nav3">
-            <h2
-              data-test="open-edit-project"
-              onClick={() => this.setState({ editProject: true })}
-            >
-              <img
-                className="edit-projects nav-icon"
-                src="https://i.imgur.com/sfaD9Mf.png"
-                alt="open folder"
-              />
-              Edit Project
-            </h2>
-          </div>
+          <a href="#home">
+            <div className="btn-area" id="nav1">
+              <h2
+                data-test="open-new-project"
+                onClick={() => this.setState({ newProject: true })}
+              >
+                <img
+                  className="add-project nav-icon"
+                  src="https://i.imgur.com/fLxsoUL.png"
+                  alt="folder with plus sign on it."
+                />
+                Create New Project
+              </h2>
+            </div>
+          </a>
+          <a href="#home">
+            <div className="btn-area" id="nav2">
+              <h2
+                data-test="open-new-palette"
+                onClick={() =>
+                  this.setState({
+                    newPalette: true,
+                    chosenProject: 0,
+                    paletteTitle: ""
+                  })
+                }
+              >
+                <img
+                  className="add-palette nav-icon"
+                  src="https://i.imgur.com/jUtzZ1X.png"
+                  alt="swatchbook"
+                />
+                Create New Palette
+              </h2>
+            </div>
+          </a>
+          <a href="#home">
+            <div className="btn-area" id="nav3">
+              <h2
+                data-test="open-edit-project"
+                onClick={() => this.setState({ editProject: true })}
+              >
+                <img
+                  className="edit-projects nav-icon"
+                  src="https://i.imgur.com/sfaD9Mf.png"
+                  alt="open folder"
+                />
+                Edit Project
+              </h2>
+            </div>
+          </a>
           <a href="#projects">
             <div className="btn-area" id="nav4">
               <h2>
@@ -181,6 +221,20 @@ class PaletteMaker extends Component {
                       this.setState({ projectTitle: e.target.value })
                     }
                   />
+                  <input
+                    required
+                    type="text"
+                    className="palette-name-input"
+                    id="new-palette-name"
+                    name="name"
+                    data-test="palette-name"
+                    placeholder="Untitled Palette"
+                    value={paletteTitle}
+                    onChange={e =>
+                      this.setState({ paletteTitle: e.target.value })
+                    }
+                  />
+                  <button>Submit</button>
                 </div>
               </form>
             </div>
@@ -266,7 +320,7 @@ class PaletteMaker extends Component {
               <form
                 className="palette-maker-form"
                 data-test="edit-project-form"
-                onSubmit={e => this.handleSubmit(e)}
+                onSubmit={e => this.handleEdit(e)}
               >
                 <div className="project-dropdown">
                   <label htmlFor="project-selector">
@@ -289,7 +343,29 @@ class PaletteMaker extends Component {
                       </option>
                     ))}
                   </select>
+                  <select
+                    id="palette-selector"
+                    className="palette-select"
+                    required
+                    value={chosenPalette}
+                    data-test="palette-select"
+                    onChange={e =>
+                      this.setState({ chosenPalette: parseInt(e.target.value) })
+                    }
+                  >
+                    <option value="0">-- Select a Palette --</option>
+                    {this.props.palettes.map(palette => {
+                      if (chosenProject === palette.project_id) {
+                        return (
+                          <option key={palette.id} value={palette.id}>
+                            {palette.name}
+                          </option>
+                        );
+                      }
+                    })}
+                  </select>
                 </div>
+                <button type="submit">SUBMIT</button>
               </form>
             </div>
           </div>
@@ -298,6 +374,22 @@ class PaletteMaker extends Component {
         <section className="palette-cards-section">
           <div className="palette-cards">{this.renderPalettes()}</div>
         </section>
+        {editProjectButton && (
+          <button
+            onClick={() => {
+              this.props.patchPalette(
+                this.props.palettes.find(
+                  palette => palette.id === chosenPalette
+                ).name,
+                colors,
+                chosenPalette
+              );
+              this.setState({ editProjectButton: false });
+            }}
+          >
+            SAVE UPDATED PALETTE
+          </button>
+        )}
       </div>
     );
   }
