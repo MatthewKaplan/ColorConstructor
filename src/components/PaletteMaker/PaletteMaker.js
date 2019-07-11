@@ -28,7 +28,6 @@ class PaletteMaker extends Component {
   handleEdit = e => {
     e.preventDefault()
 
-    // eslint-disable-next-line react/prop-types
     const palette = this.props.palettes.find(palette => {
       return palette.id === this.state.chosenPalette
     })
@@ -441,11 +440,12 @@ class PaletteMaker extends Component {
   }
 }
 
-PaletteMaker.propsTypes = {
-  palettes: PropTypes.arr,
+PaletteMaker.propTypes = {
+  palettes: PropTypes.array,
   addPalette: PropTypes.func,
   addProject: PropTypes.func,
-  projects: PropTypes.arr,
+  projects: PropTypes.array,
+  patchPalette: PropTypes.func,
 }
 
 export default PaletteMaker

@@ -26,6 +26,7 @@ ProjectPalettes.propTypes = {
   paletteName: PropTypes.string,
   colors: PropTypes.array,
   paletteId: PropTypes.number,
+  deletePalette: PropTypes.func,
 }
 
 export default ProjectPalettes
