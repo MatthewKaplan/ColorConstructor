@@ -1,7 +1,16 @@
 .header-component {
-  text-align: center;
+  text-align: left;
   h1 {
-    color: red;
+    color: #2d5ec3;
+    text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff,
+      1px 1px 0 #fff;
     margin: 0 auto;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 4rem;
+    margin-left: 100px;
+    margin-bottom: 10px;
   }
+}
+.logo {
+  height: 65px;
 }
