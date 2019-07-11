@@ -62,6 +62,8 @@ $ npm t -- --coverage --watchAll=false
 - React.js
 - node.js
 - Heroku
+- Knex
+- Express
 - SASS
 
 ## Tested With:
