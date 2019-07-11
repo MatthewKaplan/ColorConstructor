@@ -4,7 +4,14 @@ import PaletteMaker from '../PaletteMaker/PaletteMaker'
 import ProjectCard from '../ProjectCard/ProjectCard'
 
 class App extends Component {
-  state = { projects: [], palettes: [], error: '', loading: false }
+  state = {
+    projects: [],
+    palettes: [],
+    error: '',
+    loading: false,
+    link:
+      'https://cors-anywhere.herokuapp.com/https://colorconstructor-api.herokuapp.com/api/v1/',
+  }
 
   componentDidMount() {
     this.fetchProjects()
@@ -14,9 +21,7 @@ class App extends Component {
   fetchProjects = async () => {
     this.setState({ loading: true })
     try {
-      const projects = await fetch(
-        'https://colorconstructor-api.herokuapp.com/api/v1/projects'
-      )
+      const projects = await fetch(`${this.state.link}projects`)
       const response = await projects.json()
       this.setState({ projects: response, loading: false })
     } catch (error) {
@@ -27,9 +32,7 @@ class App extends Component {
   fetchPalettes = async () => {
     this.setState({ loading: true })
     try {
-      const palettes = await fetch(
-        'https://colorconstructor-api.herokuapp.com/api/v1/palettes'
-      )
+      const palettes = await fetch(`${this.state.link}palettes`)
       const response = await palettes.json()
       this.setState({ palettes: response })
     } catch (error) {
@@ -40,14 +43,11 @@ class App extends Component {
   addProject = async (projectName, paletteName, colors) => {
     const { projects } = this.state
     try {
-      const response = await fetch(
-        'https://colorconstructor-api.herokuapp.com/api/v1/projects',
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ name: projectName }),
-        }
-      )
+      const response = await fetch(`${this.state.link}projects`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: projectName }),
+      })
       const newProject = await response.json()
       this.setState({ projects: [...projects, newProject] }, () => {
         this.addPalette(newProject.id, paletteName, colors)
@@ -69,14 +69,11 @@ class App extends Component {
       project_id: projectId,
     }
     try {
-      const response = await fetch(
-        `https://colorconstructor-api.herokuapp.com/api/v1/palettes`,
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(paletteData),
-        }
-      )
+      const response = await fetch(`${this.state.link}palettes`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(paletteData),
+      })
       const newPalette = await response.json()
       this.setState({ palettes: [...palettes, newPalette] })
     } catch (error) {
@@ -95,16 +92,11 @@ class App extends Component {
       id,
     }
     try {
-      await fetch(
-        `https://colorconstructor-api.herokuapp.com/api/v1/palettes/${id}`,
-        {
-          method: 'PATCH',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(paletteData),
-        }
-      )
-      // const updatedPalette = await response.json();
-      // this.setState({ palettes: [...palettes, updatedPalette] });
+      await fetch(`${this.state.link}palettes/${id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(paletteData),
+      })
       this.fetchPalettes()
     } catch (error) {
       this.setState({ error: error.message })
@@ -114,12 +106,9 @@ class App extends Component {
   deletePalette = async id => {
     const { palettes } = this.state
     try {
-      await fetch(
-        `https://colorconstructor-api.herokuapp.com/api/v1/palettes/${id}`,
-        {
-          method: 'DELETE',
-        }
-      )
+      await fetch(`${this.state.link}palettes/${id}`, {
+        method: 'DELETE',
+      })
       this.setState({
         palettes: palettes.filter(palette => palette.id !== id),
       })
@@ -131,12 +120,9 @@ class App extends Component {
   deleteProject = async id => {
     const { projects } = this.state
     try {
-      await fetch(
-        `https://colorconstructor-api.herokuapp.com/api/v1/projects/${id}`,
-        {
-          method: 'DELETE',
-        }
-      )
+      await fetch(`${this.state.link}projects/${id}`, {
+        method: 'DELETE',
+      })
       this.setState({
         projects: projects.filter(project => project.id !== id),
       })
