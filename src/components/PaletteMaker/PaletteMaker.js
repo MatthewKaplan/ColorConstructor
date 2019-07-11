@@ -60,7 +60,7 @@ class PaletteMaker extends Component {
     })
 
     this.setState({
-      colors: paletteColors,
+      colors: paletteColors
     })
   }
 
@@ -184,7 +184,7 @@ class PaletteMaker extends Component {
             </div>
           </a>
           <div className="btn-area" id="nav5">
-            <h2 onClick={() => this.generateColors()}>
+            <h2 data-test='generate-colors-btn' onClick={() => this.generateColors()}>
               <img
                 className="view-projects nav-icon"
                 src="https://i.imgur.com/cGp9VHw.png"
@@ -379,6 +379,7 @@ class PaletteMaker extends Component {
         </section>
         {editProjectButton && (
           <button
+          data-test='update-palette-btn'
             onClick={() => {
               this.props.patchPalette(
                 this.props.palettes.find(

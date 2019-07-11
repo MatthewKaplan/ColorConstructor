@@ -11,8 +11,9 @@ function ProjectPalettes(props) {
           <DoughnutGraph colors={props.colors} />
         </section>
         <img
-          onClick={() => this.props.deletePalette(props.paletteId)}
+          onClick={() => props.deletePalette(props.paletteId)}
           className="delete-palette"
+          data-test="delete-palette-btn"
           alt="delete icon"
           src="https://i.imgur.com/ZJ6SKgx.png"
         />
