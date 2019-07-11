@@ -60,7 +60,7 @@ class PaletteMaker extends Component {
     })
 
     this.setState({
-      colors: paletteColors
+      colors: paletteColors,
     })
   }
 
@@ -120,7 +120,7 @@ class PaletteMaker extends Component {
     return (
       <div className="palette-maker-component" id="home">
         <div className="banner-area">
-          <a href="#home">
+          <a href="#header">
             <div className="btn-area" id="nav1">
               <h2
                 data-test="open-new-project"
@@ -135,7 +135,7 @@ class PaletteMaker extends Component {
               </h2>
             </div>
           </a>
-          <a href="#home">
+          <a href="#header">
             <div className="btn-area" id="nav2">
               <h2
                 data-test="open-new-palette"
@@ -156,7 +156,7 @@ class PaletteMaker extends Component {
               </h2>
             </div>
           </a>
-          <a href="#home">
+          <a href="#header">
             <div className="btn-area" id="nav3">
               <h2
                 data-test="open-edit-project"
@@ -183,18 +183,49 @@ class PaletteMaker extends Component {
               </h2>
             </div>
           </a>
-          <div className="btn-area" id="nav5">
-            <h2 data-test='generate-colors-btn' onClick={() => this.generateColors()}>
-              <img
-                className="view-projects nav-icon"
-                src="https://i.imgur.com/cGp9VHw.png"
-                alt="open folder"
-              />
-              Generate Palette
-            </h2>
-          </div>
+          <a href="#header">
+            <div className="btn-area generate-palette" id="nav5">
+              <h2
+                data-test="generate-colors-btn"
+                onClick={() => this.generateColors()}
+              >
+                <img
+                  className="nav-icon"
+                  src="https://i.imgur.com/cGp9VHw.png"
+                  alt="open folder"
+                />
+                Generate Palette
+              </h2>
+            </div>
+          </a>
+          {editProjectButton && (
+            <a href="#header">
+              <div className="btn-area save-palette" id="nav6">
+                <h2
+                  data-test="update-palette-btn"
+                  onClick={() => {
+                    this.props.patchPalette(
+                      this.props.palettes.find(
+                        palette => palette.id === chosenPalette
+                      ).name,
+                      colors,
+                      chosenPalette
+                    )
+                    this.setState({ editProjectButton: false })
+                  }}
+                >
+                  <img
+                    className="nav-icon"
+                    src="https://i.imgur.com/I7kkHor.png"
+                    alt="open folder"
+                  />
+                  Save Palette
+                </h2>
+              </div>
+            </a>
+          )}
         </div>
-        {newProject === true && (
+        {newProject && (
           <div className="bg-modal">
             <div className="modal-content">
               <div
@@ -210,7 +241,12 @@ class PaletteMaker extends Component {
                 onSubmit={e => this.handleSubmit(e)}
               >
                 <div className="project-name-container">
-                  <label htmlFor="new-project-name">Project Name:</label>
+                  <label
+                    htmlFor="new-project-name"
+                    className="new-project-name"
+                  >
+                    Project Title:
+                  </label>
                   <input
                     required
                     type="text"
@@ -224,6 +260,12 @@ class PaletteMaker extends Component {
                       this.setState({ projectTitle: e.target.value })
                     }
                   />
+                  <label
+                    htmlFor="new-palette-name"
+                    className="new-project-name"
+                  >
+                    Palette Title:
+                  </label>
                   <input
                     required
                     type="text"
@@ -237,14 +279,16 @@ class PaletteMaker extends Component {
                       this.setState({ paletteTitle: e.target.value })
                     }
                   />
-                  <button>Submit</button>
+                </div>
+                <div className="btn">
+                  <button type="button">Submit</button>
                 </div>
               </form>
             </div>
           </div>
         )}
 
-        {newPalette === true && (
+        {newPalette && (
           <div className="bg-modal">
             <div className="modal-content">
               <div
@@ -260,8 +304,11 @@ class PaletteMaker extends Component {
                 onSubmit={e => this.handleSubmit(e)}
               >
                 <div className="project-dropdown">
-                  <label htmlFor="project-selector">
-                    Please Select a Project that you would like to add a palette
+                  <label
+                    htmlFor="project-selector"
+                    className="new-project-name"
+                  >
+                    Select a Project that you would like to add a new palette
                     too:
                   </label>
                   <select
@@ -274,7 +321,7 @@ class PaletteMaker extends Component {
                       this.setState({ chosenProject: parseInt(e.target.value) })
                     }
                   >
-                    <option value="0">-- Select a Project --</option>
+                    <option value="0"> Select Project </option>
                     {this.props.projects.map(project => (
                       <option key={project.id} value={project.id}>
                         {project.name}
@@ -285,9 +332,14 @@ class PaletteMaker extends Component {
                 {chosenProject >= 1 && (
                   <React.Fragment>
                     <div className="palette-title-container">
-                      <label htmlFor="palette-title">Palette Title</label>
+                      <label
+                        htmlFor="palette-title"
+                        className="new-palette-name"
+                      >
+                        Palette Title
+                      </label>
                       <input
-                        className="ColorGenerator-form-input"
+                        className="palette-name-input"
                         type="text"
                         id="palette-title"
                         name="paletteTitle"
@@ -310,7 +362,7 @@ class PaletteMaker extends Component {
           </div>
         )}
 
-        {editProject === true && (
+        {editProject && (
           <div className="bg-modal">
             <div className="modal-content">
               <div
@@ -326,8 +378,8 @@ class PaletteMaker extends Component {
                 onSubmit={e => this.handleEdit(e)}
               >
                 <div className="project-dropdown">
-                  <label htmlFor="project-selector">
-                    Please Select a Project that you would like to edit:
+                  <label htmlFor="project-selector" className="new-project-name">
+                    Select a Project to edit:
                   </label>
                   <select
                     id="project-selector"
@@ -339,13 +391,16 @@ class PaletteMaker extends Component {
                       this.setState({ chosenProject: parseInt(e.target.value) })
                     }
                   >
-                    <option value="0">-- Select a Project --</option>
+                    <option value="0"> Select Project </option>
                     {this.props.projects.map(project => (
                       <option key={project.id} value={project.id}>
                         {project.name}
                       </option>
                     ))}
                   </select>
+                  <label htmlFor="palette-selector" className="new-project-name">
+                  Select a Palette to edit:
+                </label>
                   <select
                     id="palette-selector"
                     className="palette-select"
@@ -356,7 +411,7 @@ class PaletteMaker extends Component {
                       this.setState({ chosenPalette: parseInt(e.target.value) })
                     }
                   >
-                    <option value="0">-- Select a Palette --</option>
+                    <option value="0"> Select Palette </option>
                     {this.props.palettes.map(palette => {
                       if (chosenProject === palette.project_id) {
                         return (
@@ -377,23 +432,6 @@ class PaletteMaker extends Component {
         <section className="palette-cards-section">
           <div className="palette-cards">{this.renderPalettes()}</div>
         </section>
-        {editProjectButton && (
-          <button
-          data-test='update-palette-btn'
-            onClick={() => {
-              this.props.patchPalette(
-                this.props.palettes.find(
-                  palette => palette.id === chosenPalette
-                ).name,
-                colors,
-                chosenPalette
-              )
-              this.setState({ editProjectButton: false })
-            }}
-          >
-            SAVE UPDATED PALETTE
-          </button>
-        )}
       </div>
     )
   }

@@ -7,4 +7,9 @@
 
 .delete-palette {
   height: 40px;
+  cursor: pointer;
+
+  &:hover {
+    opacity: .7;
+  }
 }

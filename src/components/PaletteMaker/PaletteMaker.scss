@@ -4,13 +4,14 @@
 
   .palette-cards-section {
     margin: 0 100px 0 100px;
+    height: 100%;
   }
 
   .palette-cards {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-    height: 700px;
-    
+    height: 75%;
+
     .palette-card {
       border: 1px solid red;
       height: 400px;
@@ -27,18 +28,22 @@
   }
 
   .btn-area {
-    background-color: #10B0EE;
+    background-color: #10b0ee;
     width: 300px;
     height: 60px;
     border-radius: 30px;
     position: fixed;
     right: -230px;
-    transition: .8s ease;
+    transition: 0.8s ease;
     box-shadow: 4px 5px 10px #000;
+  }
 
-    &:nth-child(5n){
-      background-color: red;
-    }
+  .generate-palette {
+    background-color: red;
+  }
+
+  .save-palette {
+    background-color: green;
   }
 
   .banner-area h2 {
@@ -63,19 +68,22 @@
   }
 
   #nav1 {
-    top: 200px;
+    top: 100px;
   }
   #nav2 {
-    top: 270px;
+    top: 170px;
   }
   #nav3 {
-    top: 340px;
+    top: 240px;
   }
   #nav4 {
-    top: 410px;
+    top: 310px;
   }
   #nav5 {
-    top: 650px;
+    top: 570px;
+  }
+  #nav6 {
+    top: 640px;
   }
 
   .btn-area h2 img {
@@ -109,7 +117,6 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    justify-content: center;
 
     input {
       width: 50%;
@@ -117,12 +124,37 @@
       margin: 15px auto;
     }
 
-    select {
-      width: 50%;
-      display: block;
+    .project-dropdown {
       margin: 0 auto;
+      width: 400px;
+      text-align: left;
+    }
+
+    select {
+      width: 68%;
+      display: block;
+      margin: 10px auto;
       text-align: center;
       height: 40px;
+      font-size: 20px;
+    }
+    .project-select:focus {
+      outline: none;
+    }
+
+    .new-project-name,
+    .palette-title,
+    .new-palette-name {
+      font-size: 23px;
+      margin-right: 140px;
+      color: #338033;
+    }
+
+    .project-name-input,
+    .palette-name-input {
+      height: 30px;
+      font-size: 18px;
+      text-align: center;
     }
   }
 
@@ -135,4 +167,73 @@
     cursor: pointer;
   }
 
+  button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin-top: 115px;
+  }
+
+  button {
+    background: none;
+    color: #338033;
+    width: 540px;
+    height: 110px;
+    border: 1px solid #338033;
+    font-size: 18px;
+    border-radius: 4px 4px 0 0;
+    transition: 1s;
+    overflow: hidden;
+  }
+
+  button:focus {
+    outline: none;
+  }
+
+  button:before {
+    content: '';
+    display: block;
+    position: absolute;
+    background: rgba(255, 255, 255, 0.5);
+    width: 60px;
+    height: 100px;
+    left: 0;
+    top: 0;
+    opacity: 0.5s;
+    filter: blur(30px);
+    transform: translateX(-130px) skewX(-15deg);
+  }
+
+  button:after {
+    content: '';
+    display: block;
+    position: absolute;
+    background: rgba(255, 255, 255, 0.2);
+    width: 30px;
+    height: 100%;
+    left: 30px;
+    top: 0;
+    opacity: 0;
+    filter: blur(30px);
+    transform: translate(-100px) scaleX(-15deg);
+  }
+
+  button:hover {
+    background: #338033;
+    color: #ccc;
+    cursor: pointer;
+  }
+
+  button:hover:before {
+    transform: translateX(300px) skewX(-15deg);
+    opacity: 0.6;
+    transition: 0.7s;
+  }
+
+  button:hover:after {
+    transform: translateX(300px) skewX(-15deg);
+    opacity: 1;
+    transition: 0.7s;
+  }
 }
