@@ -1,22 +1,27 @@
-import React, { Component } from "react";
+import React from 'react'
+import PropTypes from 'prop-types'
 
-class Palettes extends Component {
-  render() {
-    const { id, hex, isLocked, lockPalette } = this.props;
-    return (
-      <div className="palettes-container" style={{ backgroundColor: hex }}>
-          <h1 className="hex-code">{hex.toUpperCase()}</h1>
-          <i
-            role="button"
-            data-test="lock-icon"
-            className="Color-lock-icon material-icons"
-            onClick={() => lockPalette(id)}
-          >
-            {isLocked ? "lock" : "lock_open"}
-          </i>
-      </div>
-    );
-  }
+function Palettes(props) {
+  return (
+    <div className="palettes-container" style={{ backgroundColor: props.hex }}>
+      <h1 className="hex-code">{props.hex.toUpperCase()}</h1>
+      <i
+        role="button"
+        data-test="lock-icon"
+        className="Color-lock-icon material-icons"
+        onClick={() => props.lockPalette(props.id)}
+      >
+        {props.isLocked ? 'lock' : 'lock_open'}
+      </i>
+    </div>
+  )
 }
 
-export default Palettes;
+Palettes.propTypes = {
+  hex: PropTypes.string,
+  lockPalette: PropTypes.func,
+  isLocked: PropTypes.bool,
+  id: PropTypes.number,
+}
+
+export default Palettes
