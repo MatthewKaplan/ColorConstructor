@@ -32,7 +32,11 @@ class PaletteMaker extends Component {
       return palette.id === this.state.chosenPalette
     })
 
-    this.setState({ editProject: false, editProjectButton: true })
+    this.setState({
+      editProject: false,
+      editProjectButton: true,
+      chosenProject: 0,
+    })
 
     this.setState(({ colors }) => {
       colors[0].hex = palette.color_1
@@ -94,7 +98,6 @@ class PaletteMaker extends Component {
     this.setState({ newProject: false, newPalette: false, editProject: false })
     const { chosenProject, projectTitle, paletteTitle, colors } = this.state
     if (chosenProject === 0) {
-      // eslint-disable-next-line react/prop-types
       this.props.addProject(projectTitle, paletteTitle, colors)
     } else {
       this.props.addPalette(chosenProject, paletteTitle, colors)
@@ -116,6 +119,19 @@ class PaletteMaker extends Component {
       editProjectButton,
       colors,
     } = this.state
+
+    const paletteToEdit = this.props.palettes.map(palette => {
+      if (chosenProject === palette.project_id) {
+        return (
+          <option key={palette.id} value={palette.id}>
+            {palette.name}
+          </option>
+        )
+      } else {
+        return true
+      }
+    })
+
     return (
       <div className="palette-maker-component" id="home">
         <div className="banner-area">
@@ -279,7 +295,7 @@ class PaletteMaker extends Component {
                     }
                   />
                 </div>
-                <button type="submit">Submit</button>
+                <button type="submit">ADD PROJECT</button>
               </form>
             </div>
           </div>
@@ -350,7 +366,7 @@ class PaletteMaker extends Component {
                       />
                     </div>
                     <button className="add-new-palette" type="submit">
-                      Add New Palette
+                      ADD PALETTE
                     </button>
                   </React.Fragment>
                 )}
@@ -391,42 +407,42 @@ class PaletteMaker extends Component {
                       this.setState({ chosenProject: parseInt(e.target.value) })
                     }
                   >
-                    <option value="0"> Select Project </option>
+                    <option value="0">Select Project</option>
                     {this.props.projects.map(project => (
                       <option key={project.id} value={project.id}>
                         {project.name}
                       </option>
                     ))}
                   </select>
-                  <label
-                    htmlFor="palette-selector"
-                    className="new-project-name"
-                  >
-                    Select a Palette to edit:
-                  </label>
-                  <select
-                    id="palette-selector"
-                    className="palette-select"
-                    required
-                    value={chosenPalette}
-                    data-test="palette-select"
-                    onChange={e =>
-                      this.setState({ chosenPalette: parseInt(e.target.value) })
-                    }
-                  >
-                    <option value="0"> Select Palette </option>
-                    {this.props.palettes.map(palette => {
-                      if (chosenProject === palette.project_id) {
-                        return (
-                          <option key={palette.id} value={palette.id}>
-                            {palette.name}
-                          </option>
-                        )
-                      }
-                    })}
-                  </select>
+                  {chosenProject >= 1 && (
+                    <React.Fragment>
+                      <label
+                        htmlFor="palette-selector"
+                        className="new-project-name"
+                      >
+                        Select a Palette to edit:
+                      </label>
+                      <select
+                        id="palette-selector"
+                        className="palette-select"
+                        required
+                        value={chosenPalette}
+                        data-test="palette-select"
+                        onChange={e =>
+                          this.setState({
+                            chosenPalette: parseInt(e.target.value),
+                          })
+                        }
+                      >
+                        <option value="0">Select Palette</option>
+                        {paletteToEdit}
+                      </select>
+                    </React.Fragment>
+                  )}
                 </div>
-                <button type="submit">SUBMIT</button>
+                {chosenPalette >= 1 && chosenProject >= 1 && (
+                  <button type="submit">EDIT PALETTE</button>
+                )}
               </form>
             </div>
           </div>
