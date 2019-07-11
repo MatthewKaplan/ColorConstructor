@@ -259,20 +259,26 @@ describe('PaletteMaker', () => {
       expect(wrapper.state('editProjectButton')).toEqual(false)
     })
 
-    it("should change the state of chosenPalette when invoked", () => {
-      wrapper.setState({editProject: true})
-      expect(wrapper.state("chosenPalette")).toEqual(0)
-      let paletteInput = { target: { value: 33, classList: "palette-select" } };
-      wrapper.find("[data-test='palette-select']").simulate('change', paletteInput)
-      expect(wrapper.state("chosenPalette")).toEqual(33)
+    it('should change the state of chosenPalette when invoked', () => {
+      wrapper.setState({ editProject: true, chosenProject: 1 })
+      expect(wrapper.state('chosenPalette')).toEqual(0)
+      let paletteInput = { target: { value: 33, classList: 'palette-select' } }
+      wrapper
+        .find("[data-test='palette-select']")
+        .simulate('change', paletteInput)
+      expect(wrapper.state('chosenPalette')).toEqual(33)
     })
 
-    it("should change the state of paletteTitle when invoked", () => {
-      wrapper.setState({newProject: true})
-      expect(wrapper.state("paletteTitle")).toEqual("")
-      let paletteInput = { target: { value: "Matts palette", classList: "palette-select" } };
-      wrapper.find("[data-test='palette-name']").simulate('change', paletteInput)
-      expect(wrapper.state("paletteTitle")).toEqual("Matts palette")
+    it('should change the state of paletteTitle when invoked', () => {
+      wrapper.setState({ newProject: true })
+      expect(wrapper.state('paletteTitle')).toEqual('')
+      let paletteInput = {
+        target: { value: 'Matts palette', classList: 'palette-select' },
+      }
+      wrapper
+        .find("[data-test='palette-name']")
+        .simulate('change', paletteInput)
+      expect(wrapper.state('paletteTitle')).toEqual('Matts palette')
     })
   })
 })

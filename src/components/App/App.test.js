@@ -1,12 +1,12 @@
 import React from 'react'
 import { shallow } from 'enzyme'
-import App from './App'
 import MockData from '../../assets/mockData'
+import App from './App'
 
 const projectsLink =
-  'https://colorconstructor-api.herokuapp.com/api/v1/projects'
+  'https://cors-anywhere.herokuapp.com/https://colorconstructor-api.herokuapp.com/api/v1/projects'
 const palettesLink =
-  'https://colorconstructor-api.herokuapp.com/api/v1/palettes'
+  'https://cors-anywhere.herokuapp.com/https://colorconstructor-api.herokuapp.com/api/v1/palettes'
 
 const mockColors = MockData.mockColors
 const mockPalette = MockData.mockPalette
@@ -55,6 +55,8 @@ describe('App', () => {
       palettes: [],
       error: '',
       loading: false,
+      link:
+        'https://cors-anywhere.herokuapp.com/https://colorconstructor-api.herokuapp.com/api/v1/',
     })
   })
 
