@@ -321,7 +321,7 @@ class PaletteMaker extends Component {
                       this.setState({ chosenProject: parseInt(e.target.value) })
                     }
                   >
-                    <option value="0"> Project </option>
+                    <option value="0"> Select Project </option>
                     {this.props.projects.map(project => (
                       <option key={project.id} value={project.id}>
                         {project.name}
@@ -378,8 +378,8 @@ class PaletteMaker extends Component {
                 onSubmit={e => this.handleEdit(e)}
               >
                 <div className="project-dropdown">
-                  <label htmlFor="project-selector">
-                    Please Select a Project that you would like to edit:
+                  <label htmlFor="project-selector" className="new-project-name">
+                    Select a Project to edit:
                   </label>
                   <select
                     id="project-selector"
@@ -391,13 +391,16 @@ class PaletteMaker extends Component {
                       this.setState({ chosenProject: parseInt(e.target.value) })
                     }
                   >
-                    <option value="0">-- Select a Project --</option>
+                    <option value="0"> Select Project </option>
                     {this.props.projects.map(project => (
                       <option key={project.id} value={project.id}>
                         {project.name}
                       </option>
                     ))}
                   </select>
+                  <label htmlFor="palette-selector" className="new-project-name">
+                  Select a Palette to edit:
+                </label>
                   <select
                     id="palette-selector"
                     className="palette-select"
@@ -408,7 +411,7 @@ class PaletteMaker extends Component {
                       this.setState({ chosenPalette: parseInt(e.target.value) })
                     }
                   >
-                    <option value="0">-- Select a Palette --</option>
+                    <option value="0"> Select Palette </option>
                     {this.props.palettes.map(palette => {
                       if (chosenProject === palette.project_id) {
                         return (
