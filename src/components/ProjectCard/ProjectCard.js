@@ -2,9 +2,16 @@ import React, { Component } from "react";
 import ProjectPalettes from "../ProjectPalettes/ProjectPalettes";
 
 class ProjectCard extends Component {
+  // state = { palettes: [] };
+  // componentWillReceiveProps = nextProps => {
+  //   // this.renderProjectPalette();
+  //   this.setState({ palettes: nextProps.palettes });
+  // };
+
   renderProjectPalette = () => {
     const { palettes, project, deletePalette, deleteProject } = this.props;
     const matchingPalettes = palettes.filter(palette => {
+      console.log("match");
       return project.id === palette.project_id;
     });
     setTimeout(() => {

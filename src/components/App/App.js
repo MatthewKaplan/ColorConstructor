@@ -89,14 +89,16 @@ class App extends Component {
     const { palettes } = this.state;
     const paletteData = {
       name,
-      color_1: colors[0],
-      color_2: colors[1],
-      color_3: colors[2],
-      color_4: colors[3],
-      color_5: colors[4]
+      color_1: colors[0].hex,
+      color_2: colors[1].hex,
+      color_3: colors[2].hex,
+      color_4: colors[3].hex,
+      color_5: colors[4].hex,
+      id
     };
+    console.log("pd", paletteData);
     try {
-      const response = await fetch(
+      await fetch(
         `https://colorconstructor-api.herokuapp.com/api/v1/palettes/${id}`,
         {
           method: "PATCH",
@@ -104,8 +106,9 @@ class App extends Component {
           body: JSON.stringify(paletteData)
         }
       );
-      const updatedPalette = await response.json();
-      this.setState({ palettes: [...palettes, updatedPalette] });
+      // const updatedPalette = await response.json();
+      // this.setState({ palettes: [...palettes, updatedPalette] });
+      this.fetchPalettes();
     } catch (error) {
       this.setState({ error: error.message });
     }
@@ -146,6 +149,7 @@ class App extends Component {
   };
 
   render() {
+    console.log("I rerendered!");
     const { projects, palettes } = this.state;
     const projectCard = projects.map(project => {
       return (
@@ -170,6 +174,7 @@ class App extends Component {
           palettes={palettes}
           addPalette={this.addPalette}
           addProject={this.addProject}
+          patchPalette={this.patchPalette}
         />
         {projectCard}
       </div>

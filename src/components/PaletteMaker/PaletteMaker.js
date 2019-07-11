@@ -31,7 +31,7 @@ class PaletteMaker extends Component {
       return palette.id === this.state.chosenPalette;
     });
 
-    this.setState({ editProject: false });
+    this.setState({ editProject: false, editProjectButton: true });
 
     this.setState(({ colors }) => {
       colors[0].hex = palette.color_1;
@@ -110,7 +110,9 @@ class PaletteMaker extends Component {
       projectTitle,
       newProject,
       newPalette,
-      editProject
+      editProject,
+      editProjectButton,
+      colors
     } = this.state;
     return (
       <div className="palette-maker-component" id="home">
@@ -372,6 +374,22 @@ class PaletteMaker extends Component {
         <section className="palette-cards-section">
           <div className="palette-cards">{this.renderPalettes()}</div>
         </section>
+        {editProjectButton && (
+          <button
+            onClick={() => {
+              this.props.patchPalette(
+                this.props.palettes.find(
+                  palette => palette.id === chosenPalette
+                ).name,
+                colors,
+                chosenPalette
+              );
+              this.setState({ editProjectButton: false });
+            }}
+          >
+            SAVE UPDATED PALETTE
+          </button>
+        )}
       </div>
     );
   }

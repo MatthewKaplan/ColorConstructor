@@ -4,7 +4,7 @@ import { Doughnut } from "react-chartjs-2";
 class DoughnutGraph extends Component {
   render() {
     const { colors } = this.props;
-    const data = {
+    let data = {
       datasets: [
         {
           data: [90, 90, 90, 90, 90],
@@ -26,6 +26,7 @@ class DoughnutGraph extends Component {
       ],
       labels: [colors[0], colors[1], colors[2], colors[3], colors[4]]
     };
+    console.log("rerender 2");
     return (
       <div className="doughnut-component">
         <Doughnut data={data} className="doughnut-graph" />
