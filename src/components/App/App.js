@@ -145,7 +145,7 @@ class App extends Component {
     }
   }
 
-  render() {
+  renderProjectCards = () => {
     const { projects, palettes } = this.state
     const projectCard = projects.map(project => {
       return (
@@ -158,6 +158,11 @@ class App extends Component {
         />
       )
     })
+    return projectCard
+  }
+
+  render() {
+    const { projects, palettes } = this.state
     return (
       <div className="App">
         <img
@@ -173,7 +178,7 @@ class App extends Component {
           addProject={this.addProject}
           patchPalette={this.patchPalette}
         />
-        {projectCard}
+        {this.renderProjectCards()}
       </div>
     )
   }
