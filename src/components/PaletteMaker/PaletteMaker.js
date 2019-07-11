@@ -1,69 +1,71 @@
-import React, { Component } from "react";
-import Palettes from "../Palettes/Palettes";
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import Palettes from '../Palettes/Palettes'
 
 class PaletteMaker extends Component {
   state = {
-    paletteTitle: "",
-    projectTitle: "",
+    paletteTitle: '',
+    projectTitle: '',
     chosenProject: 0,
     chosenPalette: 0,
     colors: [
-      { isLocked: false, hex: "", id: 1 },
-      { isLocked: false, hex: "", id: 2 },
-      { isLocked: false, hex: "", id: 3 },
-      { isLocked: false, hex: "", id: 4 },
-      { isLocked: false, hex: "", id: 5 }
+      { isLocked: false, hex: '', id: 1 },
+      { isLocked: false, hex: '', id: 2 },
+      { isLocked: false, hex: '', id: 3 },
+      { isLocked: false, hex: '', id: 4 },
+      { isLocked: false, hex: '', id: 5 },
     ],
     newProject: false,
     newPalette: false,
     editProject: false,
-    editProjectButton: false
-  };
+    editProjectButton: false,
+  }
 
   componentDidMount() {
-    this.generateColors();
+    this.generateColors()
   }
 
   handleEdit = e => {
-    e.preventDefault();
+    e.preventDefault()
 
+    // eslint-disable-next-line react/prop-types
     const palette = this.props.palettes.find(palette => {
-      return palette.id === this.state.chosenPalette;
-    });
+      return palette.id === this.state.chosenPalette
+    })
 
-    this.setState({ editProject: false, editProjectButton: true });
+    this.setState({ editProject: false, editProjectButton: true })
 
     this.setState(({ colors }) => {
-      colors[0].hex = palette.color_1;
-      colors[1].hex = palette.color_2;
-      colors[2].hex = palette.color_3;
-      colors[3].hex = palette.color_4;
-      colors[4].hex = palette.color_5;
-      return colors;
-    });
-  };
+      colors[0].hex = palette.color_1
+      colors[1].hex = palette.color_2
+      colors[2].hex = palette.color_3
+      colors[3].hex = palette.color_4
+      colors[4].hex = palette.color_5
+      return colors
+    })
+  }
 
   generateColors = () => {
-    let paletteColors = this.state.colors;
+    let paletteColors = this.state.colors
 
     paletteColors.forEach(palette => {
       const randomColor =
-        "#" +
+        '#' +
         Math.random()
           .toString(16)
-          .slice(2, 8);
+          .slice(2, 8)
       if (!palette.isLocked) {
-        palette.hex = randomColor;
+        palette.hex = randomColor
       }
-    });
+    })
 
     this.setState({
-      colors: paletteColors
-    });
-  };
+      colors: paletteColors,
+    })
+  }
 
   renderPalettes = () => {
-    const { colors } = this.state;
+    const { colors } = this.state
     const palettes = colors.map(color => {
       return (
         <Palettes
@@ -73,34 +75,35 @@ class PaletteMaker extends Component {
           hex={color.hex}
           lockPalette={this.lockPalette}
         />
-      );
-    });
-    return palettes;
-  };
+      )
+    })
+    return palettes
+  }
 
   lockPalette = id => {
     const colors = this.state.colors.map(color => {
       if (color.id === id) {
-        color.isLocked = !color.isLocked;
+        color.isLocked = !color.isLocked
       }
-      return color;
-    });
-    this.setState({ colors });
-  };
+      return color
+    })
+    this.setState({ colors })
+  }
 
   handleSubmit = e => {
-    e.preventDefault();
-    this.setState({ newProject: false, newPalette: false, editProject: false });
-    const { chosenProject, projectTitle, paletteTitle, colors } = this.state;
+    e.preventDefault()
+    this.setState({ newProject: false, newPalette: false, editProject: false })
+    const { chosenProject, projectTitle, paletteTitle, colors } = this.state
     if (chosenProject === 0) {
-      this.props.addProject(projectTitle, paletteTitle, colors);
+      // eslint-disable-next-line react/prop-types
+      this.props.addProject(projectTitle, paletteTitle, colors)
     } else {
-      this.props.addPalette(chosenProject, paletteTitle, colors);
+      this.props.addPalette(chosenProject, paletteTitle, colors)
     }
     setTimeout(() => {
-      this.setState({ chosenProject: 0, paletteTitle: "", projectTitle: "" });
-    }, 0);
-  };
+      this.setState({ chosenProject: 0, paletteTitle: '', projectTitle: '' })
+    }, 0)
+  }
 
   render() {
     const {
@@ -112,8 +115,8 @@ class PaletteMaker extends Component {
       newPalette,
       editProject,
       editProjectButton,
-      colors
-    } = this.state;
+      colors,
+    } = this.state
     return (
       <div className="palette-maker-component" id="home">
         <div className="banner-area">
@@ -140,7 +143,7 @@ class PaletteMaker extends Component {
                   this.setState({
                     newPalette: true,
                     chosenProject: 0,
-                    paletteTitle: ""
+                    paletteTitle: '',
                   })
                 }
               >
@@ -360,7 +363,7 @@ class PaletteMaker extends Component {
                           <option key={palette.id} value={palette.id}>
                             {palette.name}
                           </option>
-                        );
+                        )
                       }
                     })}
                   </select>
@@ -383,16 +386,23 @@ class PaletteMaker extends Component {
                 ).name,
                 colors,
                 chosenPalette
-              );
-              this.setState({ editProjectButton: false });
+              )
+              this.setState({ editProjectButton: false })
             }}
           >
             SAVE UPDATED PALETTE
           </button>
         )}
       </div>
-    );
+    )
   }
 }
 
-export default PaletteMaker;
+PaletteMaker.propsTypes = {
+  palettes: PropTypes.arr,
+  addPalette: PropTypes.func,
+  addProject: PropTypes.func,
+  projects: PropTypes.arr,
+}
+
+export default PaletteMaker
