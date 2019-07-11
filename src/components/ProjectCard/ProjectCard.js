@@ -45,8 +45,8 @@ class ProjectCard extends Component {
 }
 
 ProjectCard.propTypes = {
-  palettes: PropTypes.arr,
-  project: PropTypes.obj,
+  palettes: PropTypes.array,
+  project: PropTypes.object,
   deletePalette: PropTypes.func,
   deleteProject: PropTypes.func,
 }

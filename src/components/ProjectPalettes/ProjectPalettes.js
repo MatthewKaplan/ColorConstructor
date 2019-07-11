@@ -23,7 +23,7 @@ function ProjectPalettes(props) {
 
 ProjectPalettes.propTypes = {
   paletteName: PropTypes.string,
-  colors: PropTypes.arr,
+  colors: PropTypes.array,
   paletteId: PropTypes.number,
 }
 
