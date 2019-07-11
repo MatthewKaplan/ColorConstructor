@@ -4,12 +4,13 @@
 
   .palette-cards-section {
     margin: 0 100px 0 100px;
+    height: 100%;
   }
 
   .palette-cards {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-    height: 700px;
+    height: 75%;;
     
     .palette-card {
       border: 1px solid red;
@@ -35,10 +36,14 @@
     right: -230px;
     transition: .8s ease;
     box-shadow: 4px 5px 10px #000;
+  }
 
-    &:nth-child(5n){
-      background-color: red;
-    }
+  .generate-palette {
+    background-color: red;
+  }
+
+  .save-palette {
+    background-color: green;
   }
 
   .banner-area h2 {
@@ -63,19 +68,22 @@
   }
 
   #nav1 {
-    top: 200px;
+    top: 100px;
   }
   #nav2 {
-    top: 270px;
+    top: 170px;
   }
   #nav3 {
-    top: 340px;
+    top: 240px;
   }
   #nav4 {
-    top: 410px;
+    top: 310px;
   }
   #nav5 {
-    top: 650px;
+    top: 570px;
+  }
+  #nav6 {
+    top: 640px;
   }
 
   .btn-area h2 img {

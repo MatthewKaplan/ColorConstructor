@@ -60,7 +60,7 @@ class PaletteMaker extends Component {
     })
 
     this.setState({
-      colors: paletteColors
+      colors: paletteColors,
     })
   }
 
@@ -120,7 +120,7 @@ class PaletteMaker extends Component {
     return (
       <div className="palette-maker-component" id="home">
         <div className="banner-area">
-          <a href="#home">
+          <a href="#header">
             <div className="btn-area" id="nav1">
               <h2
                 data-test="open-new-project"
@@ -135,7 +135,7 @@ class PaletteMaker extends Component {
               </h2>
             </div>
           </a>
-          <a href="#home">
+          <a href="#header">
             <div className="btn-area" id="nav2">
               <h2
                 data-test="open-new-palette"
@@ -156,7 +156,7 @@ class PaletteMaker extends Component {
               </h2>
             </div>
           </a>
-          <a href="#home">
+          <a href="#header">
             <div className="btn-area" id="nav3">
               <h2
                 data-test="open-edit-project"
@@ -183,16 +183,46 @@ class PaletteMaker extends Component {
               </h2>
             </div>
           </a>
-          <div className="btn-area" id="nav5">
-            <h2 data-test='generate-colors-btn' onClick={() => this.generateColors()}>
-              <img
-                className="view-projects nav-icon"
-                src="https://i.imgur.com/cGp9VHw.png"
-                alt="open folder"
-              />
-              Generate Palette
-            </h2>
-          </div>
+          <a href="#header">
+            <div className="btn-area generate-palette" id="nav5">
+              <h2
+                data-test="generate-colors-btn"
+                onClick={() => this.generateColors()}
+              >
+                <img
+                  className="nav-icon"
+                  src="https://i.imgur.com/cGp9VHw.png"
+                  alt="open folder"
+                />
+                Generate Palette
+              </h2>
+            </div>
+          </a>
+          {editProjectButton && 
+          <a href="#header">
+            <div className="btn-area save-palette" id="nav6">
+              <h2
+                data-test="update-palette-btn"
+                onClick={() => {
+                  this.props.patchPalette(
+                    this.props.palettes.find(
+                      palette => palette.id === chosenPalette
+                    ).name,
+                    colors,
+                    chosenPalette
+                  )
+                  this.setState({ editProjectButton: false })
+                }}
+              >
+                <img
+                  className="nav-icon"
+                  src="https://i.imgur.com/I7kkHor.png"
+                  alt="open folder"
+                />
+                Save Palette
+              </h2>
+            </div>
+          </a>}
         </div>
         {newProject === true && (
           <div className="bg-modal">
@@ -377,23 +407,6 @@ class PaletteMaker extends Component {
         <section className="palette-cards-section">
           <div className="palette-cards">{this.renderPalettes()}</div>
         </section>
-        {editProjectButton && (
-          <button
-          data-test='update-palette-btn'
-            onClick={() => {
-              this.props.patchPalette(
-                this.props.palettes.find(
-                  palette => palette.id === chosenPalette
-                ).name,
-                colors,
-                chosenPalette
-              )
-              this.setState({ editProjectButton: false })
-            }}
-          >
-            SAVE UPDATED PALETTE
-          </button>
-        )}
       </div>
     )
   }
