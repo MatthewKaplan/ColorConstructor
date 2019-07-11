@@ -280,9 +280,7 @@ class PaletteMaker extends Component {
                     }
                   />
                 </div>
-                <div className="btn">
-                  <button type="button">Submit</button>
-                </div>
+                <button type="submit">Submit</button>
               </form>
             </div>
           </div>
@@ -378,7 +376,10 @@ class PaletteMaker extends Component {
                 onSubmit={e => this.handleEdit(e)}
               >
                 <div className="project-dropdown">
-                  <label htmlFor="project-selector" className="new-project-name">
+                  <label
+                    htmlFor="project-selector"
+                    className="new-project-name"
+                  >
                     Select a Project to edit:
                   </label>
                   <select
@@ -398,9 +399,12 @@ class PaletteMaker extends Component {
                       </option>
                     ))}
                   </select>
-                  <label htmlFor="palette-selector" className="new-project-name">
-                  Select a Palette to edit:
-                </label>
+                  <label
+                    htmlFor="palette-selector"
+                    className="new-project-name"
+                  >
+                    Select a Palette to edit:
+                  </label>
                   <select
                     id="palette-selector"
                     className="palette-select"
