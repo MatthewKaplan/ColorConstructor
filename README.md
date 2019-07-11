@@ -77,6 +77,6 @@ $ npm t -- --coverage --watchAll=false
 
 ---
 
-**[Back to top](https://github.com/MatthewKaplan/Go-Phish#gophish)**
+**[Back to top](https://github.com/MatthewKaplan/ColorConstructor#color-constructor)**
 
 ---
