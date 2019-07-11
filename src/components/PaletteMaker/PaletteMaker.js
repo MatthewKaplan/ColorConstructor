@@ -245,7 +245,7 @@ class PaletteMaker extends Component {
                     htmlFor="new-project-name"
                     className="new-project-name"
                   >
-                    Project Name:
+                    Project Title:
                   </label>
                   <input
                     required
@@ -264,7 +264,7 @@ class PaletteMaker extends Component {
                     htmlFor="new-palette-name"
                     className="new-project-name"
                   >
-                    Palette Name:
+                    Palette Title:
                   </label>
                   <input
                     required
@@ -304,8 +304,11 @@ class PaletteMaker extends Component {
                 onSubmit={e => this.handleSubmit(e)}
               >
                 <div className="project-dropdown">
-                  <label htmlFor="project-selector">
-                    Please Select a Project that you would like to add a palette
+                  <label
+                    htmlFor="project-selector"
+                    className="new-project-name"
+                  >
+                    Select a Project that you would like to add a new palette
                     too:
                   </label>
                   <select
@@ -318,7 +321,7 @@ class PaletteMaker extends Component {
                       this.setState({ chosenProject: parseInt(e.target.value) })
                     }
                   >
-                    <option value="0">-- Select a Project --</option>
+                    <option value="0"> Project </option>
                     {this.props.projects.map(project => (
                       <option key={project.id} value={project.id}>
                         {project.name}
@@ -329,9 +332,14 @@ class PaletteMaker extends Component {
                 {chosenProject >= 1 && (
                   <React.Fragment>
                     <div className="palette-title-container">
-                      <label htmlFor="palette-title">Palette Title</label>
+                      <label
+                        htmlFor="palette-title"
+                        className="new-palette-name"
+                      >
+                        Palette Title
+                      </label>
                       <input
-                        className="ColorGenerator-form-input"
+                        className="palette-name-input"
                         type="text"
                         id="palette-title"
                         name="paletteTitle"
