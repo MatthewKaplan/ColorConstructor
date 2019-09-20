@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Palettes from '../Palettes/Palettes'
+import MobileNav from '../MobileNav/MobileNav'
+
+var noScroll = require('no-scroll')
 
 class PaletteMaker extends Component {
   state = {
@@ -19,6 +22,7 @@ class PaletteMaker extends Component {
     newPalette: false,
     editProject: false,
     editProjectButton: false,
+    sideBarActive: false,
   }
 
   componentDidMount() {
@@ -107,6 +111,22 @@ class PaletteMaker extends Component {
     }, 0)
   }
 
+  handleSideNav = (state1, state2, state3) => {
+    this.setState({
+      newProject: state1,
+      newPalette: state2,
+      editProject: state3,
+      chosenProject: 0,
+      paletteTitle: '',
+    })
+  }
+
+  sideBarActive = () => {
+    this.setState({
+      sideBarActive: !this.state.sideBarActive,
+    })
+  }
+
   render() {
     const {
       paletteTitle,
@@ -118,6 +138,7 @@ class PaletteMaker extends Component {
       editProject,
       editProjectButton,
       colors,
+      sideBarActive,
     } = this.state
 
     const paletteToEdit = this.props.palettes.map(palette => {
@@ -134,6 +155,13 @@ class PaletteMaker extends Component {
 
     return (
       <div className="palette-maker-component" id="home">
+        <MobileNav
+          handleSideNav={this.handleSideNav}
+          handleSideBarActive={this.sideBarActive}
+        />
+        {newProject || newPalette || editProject || sideBarActive
+          ? noScroll.on()
+          : noScroll.off()}
         <div className="banner-area">
           <a href="#header">
             <div className="btn-area" id="nav1">
@@ -198,21 +226,19 @@ class PaletteMaker extends Component {
               </h2>
             </div>
           </a>
-          <a href="#header">
-            <div className="btn-area generate-palette" id="nav5">
-              <h2
-                data-test="generate-colors-btn"
-                onClick={() => this.generateColors()}
-              >
-                <img
-                  className="nav-icon"
-                  src="https://i.imgur.com/cGp9VHw.png"
-                  alt="open folder"
-                />
-                Generate Palette
-              </h2>
-            </div>
-          </a>
+          <div className="btn-area generate-palette" id="nav5">
+            <h2
+              data-test="generate-colors-btn"
+              onClick={() => this.generateColors()}
+            >
+              <img
+                className="nav-icon"
+                src="https://i.imgur.com/cGp9VHw.png"
+                alt="open folder"
+              />
+              Generate Palette
+            </h2>
+          </div>
           {editProjectButton && (
             <a href="#header">
               <div className="btn-area save-palette" id="nav6">
@@ -317,10 +343,7 @@ class PaletteMaker extends Component {
                 onSubmit={e => this.handleSubmit(e)}
               >
                 <div className="project-dropdown">
-                  <label
-                    htmlFor="project-selector"
-                    className="new-project-name"
-                  >
+                  <label htmlFor="project-selector" className="select-project">
                     Select a Project that you would like to add a new palette
                     too:
                   </label>

@@ -13,3 +13,9 @@
 .logo {
   height: 65px;
 }
+
+@media screen and (max-width: 375px) {
+  .header-component {
+    display: none;
+  }
+}
