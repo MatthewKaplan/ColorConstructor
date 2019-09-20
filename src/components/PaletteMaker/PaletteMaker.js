@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import Fade from 'react-reveal/Fade'
 import Palettes from '../Palettes/Palettes'
 import MobileNav from '../MobileNav/MobileNav'
 
@@ -267,208 +268,221 @@ class PaletteMaker extends Component {
           )}
         </div>
         {newProject && (
-          <div className="bg-modal">
-            <div className="modal-content">
-              <div
-                className="close"
-                data-test="close-new-project"
-                onClick={() => this.setState({ newProject: false })}
-              >
-                +
-              </div>
-              <form
-                className="palette-maker-form"
-                data-test="new-project-form"
-                onSubmit={e => this.handleSubmit(e)}
-              >
-                <div className="project-name-container">
-                  <label
-                    htmlFor="new-project-name"
-                    className="new-project-name"
-                  >
-                    Project Title:
-                  </label>
-                  <input
-                    required
-                    type="text"
-                    className="project-name-input"
-                    id="new-project-name"
-                    name="name"
-                    data-test="project-name"
-                    placeholder="Untitled Project"
-                    value={projectTitle}
-                    onChange={e =>
-                      this.setState({ projectTitle: e.target.value })
-                    }
-                  />
-                  <label
-                    htmlFor="new-palette-name"
-                    className="new-project-name"
-                  >
-                    Palette Title:
-                  </label>
-                  <input
-                    required
-                    type="text"
-                    className="palette-name-input"
-                    id="new-palette-name"
-                    name="name"
-                    data-test="palette-name"
-                    placeholder="Untitled Palette"
-                    value={paletteTitle}
-                    onChange={e =>
-                      this.setState({ paletteTitle: e.target.value })
-                    }
-                  />
+          <Fade bottom>
+            <div className="bg-modal">
+              <div className="modal-content">
+                <div
+                  className="close"
+                  data-test="close-new-project"
+                  onClick={() => this.setState({ newProject: false })}
+                >
+                  +
                 </div>
-                <button type="submit">ADD PROJECT</button>
-              </form>
+                <form
+                  className="palette-maker-form"
+                  data-test="new-project-form"
+                  onSubmit={e => this.handleSubmit(e)}
+                >
+                  <div className="project-name-container">
+                    <label
+                      htmlFor="new-project-name"
+                      className="new-project-name"
+                    >
+                      Project Title:
+                    </label>
+                    <input
+                      required
+                      type="text"
+                      className="project-name-input"
+                      id="new-project-name"
+                      name="name"
+                      data-test="project-name"
+                      placeholder="Untitled Project"
+                      value={projectTitle}
+                      onChange={e =>
+                        this.setState({ projectTitle: e.target.value })
+                      }
+                    />
+                    <label
+                      htmlFor="new-palette-name"
+                      className="new-project-name"
+                    >
+                      Palette Title:
+                    </label>
+                    <input
+                      required
+                      type="text"
+                      className="palette-name-input"
+                      id="new-palette-name"
+                      name="name"
+                      data-test="palette-name"
+                      placeholder="Untitled Palette"
+                      value={paletteTitle}
+                      onChange={e =>
+                        this.setState({ paletteTitle: e.target.value })
+                      }
+                    />
+                  </div>
+                  <button type="submit">ADD PROJECT</button>
+                </form>
+              </div>
             </div>
-          </div>
+          </Fade>
         )}
 
         {newPalette && (
-          <div className="bg-modal">
-            <div className="modal-content">
-              <div
-                className="close"
-                data-test="close-new-palette"
-                onClick={() => this.setState({ newPalette: false })}
-              >
-                +
-              </div>
-              <form
-                className="palette-maker-form"
-                data-test="new-palette-form"
-                onSubmit={e => this.handleSubmit(e)}
-              >
-                <div className="project-dropdown">
-                  <label htmlFor="project-selector" className="select-project">
-                    Select a Project that you would like to add a new palette
-                    too:
-                  </label>
-                  <select
-                    id="project-selector"
-                    className="project-select"
-                    required
-                    value={chosenProject}
-                    data-test="project-select"
-                    onChange={e =>
-                      this.setState({ chosenProject: parseInt(e.target.value) })
-                    }
-                  >
-                    <option value="0"> Select Project </option>
-                    {this.props.projects.map(project => (
-                      <option key={project.id} value={project.id}>
-                        {project.name}
-                      </option>
-                    ))}
-                  </select>
+          <Fade bottom>
+            <div className="bg-modal">
+              <div className="modal-content">
+                <div
+                  className="close"
+                  data-test="close-new-palette"
+                  onClick={() => this.setState({ newPalette: false })}
+                >
+                  +
                 </div>
-                {chosenProject >= 1 && (
-                  <React.Fragment>
-                    <div className="palette-title-container">
-                      <label
-                        htmlFor="palette-title"
-                        className="new-palette-name"
-                      >
-                        Palette Title
-                      </label>
-                      <input
-                        className="palette-name-input"
-                        type="text"
-                        id="palette-title"
-                        name="paletteTitle"
-                        required
-                        data-test="palette-title"
-                        placeholder="Untitled Palette"
-                        value={paletteTitle}
-                        onChange={e =>
-                          this.setState({ paletteTitle: e.target.value })
-                        }
-                      />
-                    </div>
-                    <button className="add-new-palette" type="submit">
-                      ADD PALETTE
-                    </button>
-                  </React.Fragment>
-                )}
-              </form>
+                <form
+                  className="palette-maker-form"
+                  data-test="new-palette-form"
+                  onSubmit={e => this.handleSubmit(e)}
+                >
+                  <div className="project-dropdown">
+                    <label
+                      htmlFor="project-selector"
+                      className="select-project"
+                    >
+                      Select a Project that you would like to add a new palette
+                      too:
+                    </label>
+                    <select
+                      id="project-selector"
+                      className="project-select"
+                      required
+                      value={chosenProject}
+                      data-test="project-select"
+                      onChange={e =>
+                        this.setState({
+                          chosenProject: parseInt(e.target.value),
+                        })
+                      }
+                    >
+                      <option value="0"> Select Project </option>
+                      {this.props.projects.map(project => (
+                        <option key={project.id} value={project.id}>
+                          {project.name}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  {chosenProject >= 1 && (
+                    <React.Fragment>
+                      <div className="palette-title-container">
+                        <label
+                          htmlFor="palette-title"
+                          className="new-palette-name"
+                        >
+                          Palette Title
+                        </label>
+                        <input
+                          className="palette-name-input"
+                          type="text"
+                          id="palette-title"
+                          name="paletteTitle"
+                          required
+                          data-test="palette-title"
+                          placeholder="Untitled Palette"
+                          value={paletteTitle}
+                          onChange={e =>
+                            this.setState({ paletteTitle: e.target.value })
+                          }
+                        />
+                      </div>
+                      <button className="add-new-palette" type="submit">
+                        ADD PALETTE
+                      </button>
+                    </React.Fragment>
+                  )}
+                </form>
+              </div>
             </div>
-          </div>
+          </Fade>
         )}
 
         {editProject && (
-          <div className="bg-modal">
-            <div className="modal-content">
-              <div
-                className="close"
-                data-test="close-edit-project"
-                onClick={() => this.setState({ editProject: false })}
-              >
-                +
-              </div>
-              <form
-                className="palette-maker-form"
-                data-test="edit-project-form"
-                onSubmit={e => this.handleEdit(e)}
-              >
-                <div className="project-dropdown">
-                  <label
-                    htmlFor="project-selector"
-                    className="new-project-name"
-                  >
-                    Select a Project to edit:
-                  </label>
-                  <select
-                    id="project-selector"
-                    className="project-select"
-                    required
-                    value={chosenProject}
-                    data-test="project-select"
-                    onChange={e =>
-                      this.setState({ chosenProject: parseInt(e.target.value) })
-                    }
-                  >
-                    <option value="0">Select Project</option>
-                    {this.props.projects.map(project => (
-                      <option key={project.id} value={project.id}>
-                        {project.name}
-                      </option>
-                    ))}
-                  </select>
-                  {chosenProject >= 1 && (
-                    <React.Fragment>
-                      <label
-                        htmlFor="palette-selector"
-                        className="new-project-name"
-                      >
-                        Select a Palette to edit:
-                      </label>
-                      <select
-                        id="palette-selector"
-                        className="palette-select"
-                        required
-                        value={chosenPalette}
-                        data-test="palette-select"
-                        onChange={e =>
-                          this.setState({
-                            chosenPalette: parseInt(e.target.value),
-                          })
-                        }
-                      >
-                        <option value="0">Select Palette</option>
-                        {paletteToEdit}
-                      </select>
-                    </React.Fragment>
-                  )}
+          <Fade bottom>
+            <div className="bg-modal">
+              <div className="modal-content">
+                <div
+                  className="close"
+                  data-test="close-edit-project"
+                  onClick={() => this.setState({ editProject: false })}
+                >
+                  +
                 </div>
-                {chosenPalette >= 1 && chosenProject >= 1 && (
-                  <button type="submit">EDIT PALETTE</button>
-                )}
-              </form>
+                <form
+                  className="palette-maker-form"
+                  data-test="edit-project-form"
+                  onSubmit={e => this.handleEdit(e)}
+                >
+                  <div className="project-dropdown">
+                    <label
+                      htmlFor="project-selector"
+                      className="new-project-name"
+                    >
+                      Select a Project to edit:
+                    </label>
+                    <select
+                      id="project-selector"
+                      className="project-select"
+                      required
+                      value={chosenProject}
+                      data-test="project-select"
+                      onChange={e =>
+                        this.setState({
+                          chosenProject: parseInt(e.target.value),
+                        })
+                      }
+                    >
+                      <option value="0">Select Project</option>
+                      {this.props.projects.map(project => (
+                        <option key={project.id} value={project.id}>
+                          {project.name}
+                        </option>
+                      ))}
+                    </select>
+                    {chosenProject >= 1 && (
+                      <React.Fragment>
+                        <label
+                          htmlFor="palette-selector"
+                          className="new-project-name"
+                        >
+                          Select a Palette to edit:
+                        </label>
+                        <select
+                          id="palette-selector"
+                          className="palette-select"
+                          required
+                          value={chosenPalette}
+                          data-test="palette-select"
+                          onChange={e =>
+                            this.setState({
+                              chosenPalette: parseInt(e.target.value),
+                            })
+                          }
+                        >
+                          <option value="0">Select Palette</option>
+                          {paletteToEdit}
+                        </select>
+                      </React.Fragment>
+                    )}
+                  </div>
+                  {chosenPalette >= 1 && chosenProject >= 1 && (
+                    <button type="submit">EDIT PALETTE</button>
+                  )}
+                </form>
+              </div>
             </div>
-          </div>
+          </Fade>
         )}
 
         <section className="palette-cards-section">
