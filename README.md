@@ -1,4 +1,4 @@
-# Color Constructor 
+# Color Constructor <img src="https://i.imgur.com/L59M95F.png" width="200" align="right" />
 
 Color Constructor is a single page web application where users can randomly generate color palettes. Users have the ability to lock colors that they like as they generate more, save palettes, and edit palettes.
 
@@ -8,9 +8,7 @@ Color Constructor is a single page web application where users can randomly gene
 
 ## Preview:
 
-![Generate_Palettes](https://i.imgur.com/JU9d6j3.png)
-![Saved_Palettes](https://i.imgur.com/tbPnbhO.png)
-
+<img src="https://i.imgur.com/sYZTvmQ.png" width="900" />
 
 ## Getting Started:
 
